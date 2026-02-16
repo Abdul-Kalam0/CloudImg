@@ -23,6 +23,6 @@ const upload = multer({ storage });
 
 import imageRoutes from "./routes/imagesRoutes.js";
 
-app.use("/", upload.single("image"), imageRoutes);
+app.use("/", imageRoutes);
 
 export default app;
