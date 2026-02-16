@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import { imageUpload } from "../controllers/imageControllers.js";
+import { imageUpload } from "../controllers/imageController.js";
 import multer from "multer";
 
 const storage = multer.diskStorage({});

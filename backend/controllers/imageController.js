@@ -1,5 +1,5 @@
 import cloudinary from "cloudinary";
-import ImageModel from "../models/images.js";
+import ImageModel from "../models/image.js";
 
 export const imageUpload = async (req, res) => {
   try {
