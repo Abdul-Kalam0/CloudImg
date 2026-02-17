@@ -81,7 +81,11 @@ function App() {
           {uploadedImageurl && (
             <div>
               <h2>Uploaded Image</h2>
-              <img src={uploadedImageurl} alt="upload image" />
+              <img
+                src={uploadedImageurl}
+                alt="upload image"
+                style={{ width: "200px", height: "100px" }}
+              />
             </div>
           )}
         </div>
