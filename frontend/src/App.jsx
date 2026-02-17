@@ -93,7 +93,12 @@ function App() {
               <div>
                 {fetchImages.map((image) => (
                   <li key={image._id}>
-                    <img src={image.imageUrl} alt="stored" width="200" />
+                    <img
+                      src={image.imageUrl}
+                      alt="stored"
+                      style={{ width: "200px", height: "100px" }}
+                    />
+
                     <button onClick={() => handleDelete(image._id)}>
                       Delete
                     </button>
