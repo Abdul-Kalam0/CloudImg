@@ -59,8 +59,13 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete("")
-    } catch (error) {}
+      const response = await axios.delete("");
+      if (response.data.success) {
+        setMessage("Image deleted successfully");
+      }
+    } catch (error) {
+      setMessage("Failed to delete image");
+    }
   };
 
   return (
