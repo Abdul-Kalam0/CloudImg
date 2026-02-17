@@ -1,5 +1,4 @@
 import server from "./index.js";
-import cors from "cors";
 import { dbConnection } from "./config/db.js";
 import dotenv from "dotenv";
 dotenv.config();
