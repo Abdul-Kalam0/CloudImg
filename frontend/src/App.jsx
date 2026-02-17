@@ -52,6 +52,7 @@ function App() {
       console.log(response);
       setUploadedImageUrl(response.data.data.imageUrl);
       setMessage("Image Uploaded successfully.");
+      setImage(null);
       getImages();
     } catch (error) {
       setMessage("Image Upload failed.");
