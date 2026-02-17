@@ -1,5 +1,6 @@
 import cloudinary from "cloudinary";
 import ImageModel from "../models/image.js";
+import mongoose from "mongoose";
 
 export const imageUpload = async (req, res) => {
   try {
@@ -50,6 +51,36 @@ export const fetchImages = async (req, res) => {
       success: false,
       message: "Internal server error.",
       error: error.message,
+    });
+  }
+};
+
+export const deleteImage = async (req, res) => {
+  const { _id } = req.params;
+
+  if (!mongoose.isValidObjectId(_id)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid Id",
+    });
+  }
+
+  try {
+    const deletedImage = await ImageModel.findByIdAndDelete(_id);
+    if (!deleteImage) {
+      return res.status(404).json({
+        success: false,
+        message: "Id not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Image deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
     });
   }
 };

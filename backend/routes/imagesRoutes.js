@@ -9,5 +9,6 @@ const upload = multer({ storage });
 
 router.post("/uploads", upload.single("image"), imageUpload);
 router.get("/images", fetchImages);
+router.delete("/image", deleteImage);
 
 export default router;

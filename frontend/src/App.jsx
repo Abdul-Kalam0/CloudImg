@@ -13,9 +13,8 @@ function App() {
         const response = await axios.get(
           "https://cloudimg-uirq.onrender.com/images",
         );
-        console.log(response.data.data);
 
-        if (response.data.data.images) {
+        if (response.data.data) {
           setFetchImages(response.data.data);
         }
       } catch (error) {
@@ -57,17 +56,47 @@ function App() {
       setMessage("Image Upload failed.");
     }
   };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete("")
+    } catch (error) {}
+  };
+
   return (
     <>
       <div>Image Uploader</div>
       <div>
         <input type="file" onChange={handleChange} />
         <button onClick={handleUpload}>Upload</button>
-        <p>
+        <div>
           {uploadedImageurl && (
-            <img src={uploadedImageurl} alt="upload image" />
+            <div>
+              <h2>Uploaded Image</h2>
+              <img src={uploadedImageurl} alt="upload image" />
+            </div>
           )}
-        </p>
+        </div>
+
+        <div>
+          <h2>Existing Images</h2>
+          <ul>
+            {fetchImages.length > 0 ? (
+              <div>
+                {fetchImages.map((image) => (
+                  <li key={image._id}>
+                    <img src={image.imageUrl} alt="stored" width="200" />
+                    <button onClick={() => handleDelete(image._id)}>
+                      Delete
+                    </button>
+                  </li>
+                ))}
+              </div>
+            ) : (
+              <p>Images not found.</p>
+            )}
+          </ul>
+        </div>
       </div>
     </>
   );
