@@ -59,7 +59,10 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete("");
+      const response = await axios.delete(
+        `https://cloudimg-uirq.onrender.com/image/${id}`,
+      );
+      setFetchImages((prev) => prev.filter((img) => img._id !== id));
       if (response.data.success) {
         setMessage("Image deleted successfully");
       }
