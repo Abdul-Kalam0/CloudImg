@@ -7,22 +7,22 @@ function App() {
   const [uploadedImageurl, setUploadedImageUrl] = useState("");
   const [fetchImages, setFetchImages] = useState([]);
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get(
-          "https://cloudimg-uirq.onrender.com/images",
-        );
+  const getImages = async () => {
+    try {
+      const response = await axios.get(
+        "https://cloudimg-uirq.onrender.com/images",
+      );
 
-        if (response.data.data) {
-          setFetchImages(response.data.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch images", error);
-        setMessage("Failed to fetch images");
+      if (response.data.data) {
+        setFetchImages(response.data.data);
       }
-    };
-    fetchImages();
+    } catch (error) {
+      console.error("Failed to fetch images", error);
+      setMessage("Failed to fetch images");
+    }
+  };
+  useEffect(() => {
+    getImages();
   }, []);
 
   const handleChange = (e) => {
@@ -52,6 +52,7 @@ function App() {
       console.log(response);
       setUploadedImageUrl(response.data.data.imageUrl);
       setMessage("Image Uploaded successfully.");
+      getImages();
     } catch (error) {
       setMessage("Image Upload failed.");
     }
