@@ -1,5 +1,5 @@
 import cloudinary from "cloudinary";
-import ImageModel from "../models/image.js";
+import ImageModel from "../models/Image.js";
 import mongoose from "mongoose";
 
 export const imageUpload = async (req, res) => {
