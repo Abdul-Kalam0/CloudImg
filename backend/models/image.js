@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { v4 as uuid4 } from "uuid";
 
-const ImageSchema = new mongoose.Schema(
+const imageSchema = new mongoose.Schema(
   {
     imageId: {
       type: String,
@@ -52,4 +52,4 @@ const ImageSchema = new mongoose.Schema(
   },
 );
 
-export default mongoose.model("Image", ImageSchema);
+export default mongoose.model("Image", imageSchema);
