@@ -4,6 +4,7 @@ import cloudinary from "cloudinary";
 import dotenv from "dotenv";
 import multer from "multer";
 dotenv.config();
+import cookieParser from "cookie-parser";
 
 const app = express();
 
