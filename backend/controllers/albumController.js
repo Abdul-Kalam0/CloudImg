@@ -84,3 +84,39 @@ export const getAlbums = async (req, res) => {
     });
   }
 };
+
+export const updateAlbum = async (req, res) => {
+  const { albumId } = req.params;
+  const { description } = req.body;
+  try {
+    if (!albumId) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Album Id",
+      });
+    }
+
+    const album = await AlbumModel.findOne({ albumId });
+
+    if (album.ownerId.toString() !== req.user.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Only owner can update album",
+      });
+    }
+
+    album.description = description || "";
+    await album.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Album updated successfully",
+      data: album,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
