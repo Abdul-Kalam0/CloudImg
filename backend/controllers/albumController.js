@@ -1,4 +1,5 @@
 import AlbumModel from "../models/Album.js";
+import ImageModel from "../models/Image.js";
 
 export const createAlbum = async (req, res) => {
   const { name, description } = req.body;
@@ -112,6 +113,37 @@ export const updateAlbum = async (req, res) => {
       success: true,
       message: "Album updated successfully",
       data: album,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const deleteAlbum = async (req, res) => {
+  try {
+    const { albumId } = req.params;
+    const album = await AlbumModel.findOne(albumId);
+    if (!album) {
+      return res.status(400).json({
+        success: false,
+        message: "Album not found",
+      });
+    }
+    if (album.ownerId.toString() !== req.user.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Only owner can delete album",
+      });
+    }
+
+    await ImageModel.deleteMany({ albumId: album._id });
+    await album.deleteOne();
+    return res.status(200).json({
+      success: true,
+      message: "Album deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
