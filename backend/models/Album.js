@@ -25,6 +25,7 @@ const albumSchema = new mongoose.Schema(
     sharedWith: {
       type: [String],
       default: [],
+      lowercase: true,
     },
   },
   { timestamps: true },

@@ -29,6 +29,6 @@ import albumRoutes from "./routes/albumRoutes.js";
 app.use("/auth", authRoutes);
 
 app.use("/", imageRoutes);
-app.use("/", albumRoutes);
+app.use("/albums", albumRoutes);
 
 export default app;

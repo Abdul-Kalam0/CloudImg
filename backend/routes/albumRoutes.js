@@ -5,7 +5,11 @@ import { authMiddleware } from "../middleware/authMiddleware";
 
 router.use(authMiddleware);
 
-router.post("/albums", createAlbum);
-router.get("/albums", getAlbums);
+//Create
+router.post("/", createAlbum);
+
+//Read
+router.get("/:albumId", getAlbum);
+router.get("/", getAlbums);
 
 export default router;
