@@ -1,18 +1,22 @@
 import express from "express";
 const router = express.Router();
 
-import {
-  deleteImage,
-  fetchImages,
-  imageUpload,
-} from "../controllers/imageController.js";
-import multer from "multer";
+import { authMiddleware } from "../middleware/authMiddleware";
+import { upload } from "../middleware/multerMiddleware";
 
-const storage = multer.diskStorage({});
-const upload = multer({ storage });
+app.use(authMiddleware);
 
-router.post("/uploads", upload.single("image"), imageUpload);
-router.get("/images", fetchImages);
-router.delete("/image/:_id", deleteImage);
+//POST   /albums/:albumId/images
+router.post("/:albumId/images", upload.single("image"), updloadImage);
+//GET    /albums/:albumId/images
+router.get("/:albumId/images", getImages);
+//GET    /albums/:albumId/images/favorites
+router.get("/:albumId/images/favorites", getFavoriteImages);
+//PUT    /albums/:albumId/images/:imageId/favorite
+router.put("/:albumId/images/:imageId/favorite", toggleFavorite);
+//POST   /albums/:albumId/images/:imageId/comments
+router.post("/:albumId/images/:imageId/comments", addComment);
+//DELETE /albums/:albumId/images/:imageId
+router.delete("/:albumId/images/:imageId", deleteImage);
 
 export default router;

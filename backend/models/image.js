@@ -8,45 +8,67 @@ const imageSchema = new mongoose.Schema(
       unique: true,
       default: uuid4,
     },
+
     albumId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Album",
       required: true,
+      index: true,
     },
+
+    imageUrl: {
+      type: String,
+      required: true,
+    },
+
     name: {
       type: String,
       required: true,
       trim: true,
     },
+
     tags: {
       type: [String],
       default: [],
     },
+
     person: {
       type: String,
       default: "",
     },
+
     isFavourite: {
       type: Boolean,
       default: false,
     },
+
     comments: [
       {
-        type: String,
-        userEmail: String,
-        createdAt: { type: Date, default: Date.now },
+        text: {
+          type: String,
+          required: true,
+        },
+        userEmail: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
+
     uploadedAt: {
       type: Date,
       default: Date.now,
     },
+
     size: {
       type: Number,
       required: true,
     },
   },
-
   {
     timestamps: true,
   },
