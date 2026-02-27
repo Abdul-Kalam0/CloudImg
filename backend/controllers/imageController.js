@@ -1,86 +1,64 @@
-import cloudinary from "cloudinary";
+import cloudinary from "../config/cloudinary";
 import ImageModel from "../models/Image.js";
-import mongoose from "mongoose";
+import AlbumModel from "../models/Album.js";
 
-export const imageUpload = async (req, res) => {
+export const uploadImage = async (req, res) => {
   try {
     const file = req.file;
+    const { albumId } = req.params;
+    const { tags, person, isFavourite } = req.body;
+
     if (!file) {
       return res.status(400).json({
         success: false,
-        message: "File not found",
+        message: "Image file required",
       });
     }
 
-    //upload to cloudinary => will return link
-    const uploadResult = await cloudinary.uploader.upload(file.path, {
-      folder: "uploads",
+    const album = await AlbumModel.findOne({ albumId });
+    if (!album) {
+      return res.status(404).json({
+        success: false,
+        message: "Album not found",
+      });
+    }
+
+    if (album.ownerId.toString() !== req.file.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Only Owner can upload images",
+      });
+    }
+
+    //upload to cloudinary which will return image_url
+    const uploadResult = await cloudinary.uploader.upload(req.file, {
+      folder: "kaviosPix",
     });
 
-    //save image url returned by uploader to DB
-    const newImage = await ImageModel.create({
+    const image = await Image.create({
+      albumId: album._id,
       imageUrl: uploadResult.secure_url,
+      name: file.originalname,
+      size: file.size,
+      tags: tags ? tags.split(",").map((t) => t.trim()) : [],
+      person: person || "",
+      isFavourite: isFavourite === "true",
     });
 
     return res.status(201).json({
       success: true,
-      message: "Image uploaded to DB successfully",
-      data: {
-        imageUrl: uploadResult.secure_url,
-      },
+      data: image,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error.",
-      error: error.message,
+      message: error.message,
     });
   }
 };
 
-export const fetchImages = async (req, res) => {
+export const getImages = async (req, res) => {
   try {
-    const images = await ImageModel.find();
-
-    return res.status(200).json({
-      success: true,
-      data: images,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error.",
-      error: error.message,
-    });
-  }
-};
-
-export const deleteImage = async (req, res) => {
-  const { _id } = req.params;
-
-  if (!mongoose.isValidObjectId(_id)) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid Id",
-    });
-  }
-
-  try {
-    const deletedImage = await ImageModel.findByIdAndDelete(_id);
-    if (!deleteImage) {
-      return res.status(404).json({
-        success: false,
-        message: "Id not found",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Image deleted successfully",
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-    });
-  }
+    
+  } catch (error) {}
 };

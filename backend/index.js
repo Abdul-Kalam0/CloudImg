@@ -12,19 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-//clodinary setup
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-//multer setup
-const storage = multer.diskStorage({});
-const upload = multer({ storage });
-
 import imageRoutes from "./routes/imagesRoutes.js";
 import albumRoutes from "./routes/albumRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 app.use("/auth", authRoutes);
 
