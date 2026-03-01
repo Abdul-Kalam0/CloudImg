@@ -3,11 +3,19 @@ const router = express.Router();
 
 import { authMiddleware } from "../middleware/authMiddleware";
 import { upload } from "../middleware/multerMiddleware";
+import {
+  uploadImage,
+  getImages,
+  getFavoriteImages,
+  toggleFavorite,
+  addComment,
+  deleteImage,
+} from "../controllers/imageController";
 
-app.use(authMiddleware);
+router.use(authMiddleware);
 
 //POST   /albums/:albumId/images
-router.post("/:albumId/images", upload.single("image"), updloadImage);
+router.post("/:albumId/images", upload.single("image"), uploadImage);
 //GET    /albums/:albumId/images
 router.get("/:albumId/images", getImages);
 //GET    /albums/:albumId/images/favorites
