@@ -1,7 +1,13 @@
 import express from "express";
 const router = express.Router();
 
-import { authMiddleware } from "../middleware/authMiddleware";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import {
+  createAlbum,
+  getAlbum,
+  getAlbums,
+  deleteAlbum,
+} from "../controllers/albumController.js";
 
 router.use(authMiddleware);
 
@@ -16,7 +22,7 @@ router.get("/", getAlbums);
 //router.put("/:albumId", updateAlbum);
 
 // Share
-router.post("/:albumId/share", shareAlbum);
+//router.post("/:albumId/share", shareAlbum);
 
 //Delete
 router.delete("/:albumId", deleteAlbum);

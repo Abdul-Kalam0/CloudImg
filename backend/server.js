@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
 
-app.use(cookieParser());
+server.use(cookieParser());
 
 const PORT = 3000 || process.env.PORT;
 

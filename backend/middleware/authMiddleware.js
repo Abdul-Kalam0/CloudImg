@@ -1,4 +1,4 @@
-import jwt from "jwt";
+import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
 import dotenv from "dotenv";
 dotenv.config();

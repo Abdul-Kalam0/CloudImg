@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-import { authMiddleware } from "../middleware/authMiddleware";
-import { upload } from "../middleware/multerMiddleware";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/multerMiddleware.js";
 import {
   uploadImage,
   getImages,
@@ -10,7 +10,7 @@ import {
   toggleFavorite,
   addComment,
   deleteImage,
-} from "../controllers/imageController";
+} from "../controllers/imageController.js";
 
 router.use(authMiddleware);
 
