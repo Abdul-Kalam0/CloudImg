@@ -1,20 +1,19 @@
 import bcrypt from "bcrypt";
-import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
 import dotenv from "dotenv";
 dotenv.config();
 
 export const register = async (req, res) => {
-  let { email, password } = req.body;
+  let { email, password, name } = req.body;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
   try {
-    if (!email || !password) {
+    if (!email || !password || !name) {
       return res.status(400).json({
         success: false,
-        message: "Email and password are required",
+        message: "Name, Email and password are required",
       });
     }
 
@@ -49,6 +48,7 @@ export const register = async (req, res) => {
 
     //new user
     const newUser = await UserModel.create({
+      name,
       email,
       password: passHash,
     });
@@ -57,8 +57,8 @@ export const register = async (req, res) => {
       success: true,
       message: "User registered successfully",
       data: {
-        userId: newUser.userId,
-        email: newUser.email,
+        Name: newUser.name,
+        Email: newUser.email,
       },
     });
   } catch (error) {
