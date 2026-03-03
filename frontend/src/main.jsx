@@ -7,9 +7,9 @@ import { Register } from "./pages/Register.jsx";
 
 const router = createBrowserRouter([
   { path: "/app", element: <App /> },
-  { path: "/", element: <Login /> },
+  { path: "/login", element: <Login /> },
   {
-    path: "/register",
+    path: "/",
     element: <Register />,
   },
 ]);
