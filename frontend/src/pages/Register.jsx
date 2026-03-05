@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../services/api.js";
+import { NavLink } from "react-router-dom";
+import api from "../services/api.js";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -18,13 +19,13 @@ export const Register = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      api.post("/auth/register", form);
-      navigate("/login");
+      await api.post("/auth/register", form);
       alert("Registered successfully");
+      navigate("/login");
     } catch (error) {
       alert(error.response?.data.message || "Registration failed");
     } finally {
@@ -82,6 +83,9 @@ export const Register = () => {
         <button type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>
+        <h6>
+          Already have an accout? <NavLink to={"/login"}>Login</NavLink>
+        </h6>
       </form>
     </div>
   );
