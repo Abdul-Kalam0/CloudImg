@@ -1,19 +1,19 @@
 import express from "express";
 import cors from "cors";
-import cloudinary from "cloudinary";
 import dotenv from "dotenv";
-import multer from "multer";
-dotenv.config();
 import cookieParser from "cookie-parser";
+
+dotenv.config();
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -22,7 +22,6 @@ import albumRoutes from "./routes/albumRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 
 app.use("/auth", authRoutes);
-
 app.use("/albums", albumRoutes);
 app.use("/albums", imageRoutes);
 

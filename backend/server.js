@@ -2,20 +2,18 @@ import server from "./index.js";
 import { dbConnection } from "./config/db.js";
 import dotenv from "dotenv";
 dotenv.config();
-import cookieParser from "cookie-parser";
 
-server.use(cookieParser());
-
-const PORT = 3000 || process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
     await dbConnection();
+
     server.listen(PORT, () => {
-      console.log(`✅ Server is listening on port ${PORT}.`);
+      console.log(`✅ Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Error in starting server", error);
+    console.error("Error starting server", error);
   }
 };
 
