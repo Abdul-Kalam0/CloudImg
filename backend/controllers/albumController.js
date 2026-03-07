@@ -14,7 +14,7 @@ export const createAlbum = async (req, res) => {
     //create album
     const newAlbum = await AlbumModel.create({
       name: name.trim(),
-      description: description || "",
+      description: description?.trim() || "",
       ownerId: req.user.id,
     });
 
@@ -45,7 +45,7 @@ export const getAlbum = async (req, res) => {
     if (!album) {
       return res.status(404).json({
         success: false,
-        nessage: "Album not found",
+        message: "Album not found",
       });
     }
 
@@ -62,7 +62,12 @@ export const getAlbum = async (req, res) => {
       success: true,
       data: album,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 };
 
 export const getAlbums = async (req, res) => {
@@ -72,7 +77,7 @@ export const getAlbums = async (req, res) => {
         { ownerId: req.user.id },
         { sharedWith: req.user.email.toLowerCase() },
       ],
-    });
+    }).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
@@ -99,6 +104,13 @@ export const updateAlbum = async (req, res) => {
 
     const album = await AlbumModel.findOne({ albumId });
 
+    if (!album) {
+      return res.status(404).json({
+        success: false,
+        message: "Album not found",
+      });
+    }
+
     if (album.ownerId.toString() !== req.user.id) {
       return res.status(401).json({
         success: false,
@@ -106,7 +118,7 @@ export const updateAlbum = async (req, res) => {
       });
     }
 
-    album.description = description || "";
+    album.description = description?.trim() || "";
     await album.save();
 
     return res.status(200).json({
@@ -125,7 +137,7 @@ export const updateAlbum = async (req, res) => {
 export const deleteAlbum = async (req, res) => {
   try {
     const { albumId } = req.params;
-    const album = await AlbumModel.findOne(albumId);
+    const album = await AlbumModel.findOne({ albumId });
     if (!album) {
       return res.status(400).json({
         success: false,
