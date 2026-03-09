@@ -12,6 +12,7 @@ import { Upload } from "./pages/Upload.jsx";
 import { Profile } from "./pages/Profile.jsx";
 import { Setting } from "./pages/Setting.jsx";
 import { CreateAlbum } from "./pages/CreateAlbum.jsx";
+import { AlbumDetails } from "./pages/AlbumDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
           { path: "/profile", element: <Profile /> },
           { path: "/setting", element: <Setting /> },
           { path: "/create-album", element: <CreateAlbum /> },
+          { path: "/albums/:albumId", element: <AlbumDetails /> },
         ],
       },
     ],
