@@ -71,7 +71,6 @@ export const getImages = async (req, res) => {
         { sharedWith: req.user.email.toLowerCase() },
       ],
     });
-    console.log(album);
 
     if (!album) {
       return res.status(404).json({
@@ -87,7 +86,6 @@ export const getImages = async (req, res) => {
       data: images,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -141,7 +139,7 @@ export const toggleFavorite = async (req, res) => {
       });
     }
 
-    const image = await Image.findOne({ imageId });
+    const image = await ImageModel.findOne({ imageId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
@@ -177,7 +175,7 @@ export const addComment = async (req, res) => {
       return res.status(404).json({ message: "Album not found" });
     }
 
-    const image = await Image.findOne({ imageId });
+    const image = await ImageModel.findOne({ imageId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
