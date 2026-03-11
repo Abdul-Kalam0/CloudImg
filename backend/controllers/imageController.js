@@ -1,5 +1,5 @@
 import cloudinary from "../config/cloudinary.js";
-import ImageModel from "../models/Image.js";
+import Image from "../models/Image.js";
 import AlbumModel from "../models/Album.js";
 
 export const uploadImage = async (req, res) => {
@@ -37,7 +37,7 @@ export const uploadImage = async (req, res) => {
       folder: "kaviosPix",
     });
 
-    const image = await ImageModel.create({
+    const image = await Image.create({
       albumId: album._id,
       imageUrl: uploadResult.secure_url,
       name: file.originalname,
@@ -79,7 +79,7 @@ export const getImages = async (req, res) => {
       });
     }
 
-    const images = await ImageModel.find({ albumId: album._id });
+    const images = await Image.find({ albumId: album._id });
 
     return res.status(200).json({
       success: true,
@@ -110,7 +110,7 @@ export const getFavoriteImages = async (req, res) => {
       return res.status(404).json({ message: "Album not found" });
     }
 
-    const images = await ImageModel.find({
+    const images = await Image.find({
       albumId: album._id,
       isFavourite: true,
     });
@@ -139,7 +139,7 @@ export const toggleFavorite = async (req, res) => {
       });
     }
 
-    const image = await ImageModel.findOne({ imageId });
+    const image = await Image.findOne({ imageId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
@@ -175,7 +175,7 @@ export const addComment = async (req, res) => {
       return res.status(404).json({ message: "Album not found" });
     }
 
-    const image = await ImageModel.findOne({ imageId });
+    const image = await Image.findOne({ imageId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
@@ -216,7 +216,7 @@ export const deleteImage = async (req, res) => {
       });
     }
 
-    const image = await ImageModel.findOne({ imageId });
+    const image = await Image.findOne({ imageId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
