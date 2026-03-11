@@ -127,10 +127,12 @@ export const login = async (req, res) => {
 };
 
 export const me = async (req, res) => {
+  const { email } = req.user;
   try {
+    const user = await UserModel.findOne({ email });
     return res.status(200).json({
       success: true,
-      user: req.user,
+      data: user,
     });
   } catch (error) {
     return res.status(500).json({

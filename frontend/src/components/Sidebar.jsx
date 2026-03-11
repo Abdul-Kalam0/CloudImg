@@ -6,7 +6,7 @@ export const Sidebar = () => {
   const handleLogout = async () => {
     try {
       await api.post("/auth/logout");
-      navigate("/login");
+      navigate("/");
       alert("Log out successfully");
     } catch (error) {
       alert("Error in logout");

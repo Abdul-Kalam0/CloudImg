@@ -22,7 +22,7 @@ export const ProtectedRoute = () => {
   }, []);
 
   if (loading) return <h1>Fetching Data...</h1>;
-  if (!isAuth) return <Navigate to="/login" />;
+  if (!isAuth) return <Navigate to="/" />;
 
   return (
     <div>
