@@ -1,5 +1,5 @@
 import AlbumModel from "../models/Album.js";
-import ImageModel from "../models/Image.js";
+import ImageModel from "../models/image.js";
 
 export const createAlbum = async (req, res) => {
   const { name, description } = req.body;
