@@ -131,7 +131,7 @@ export const toggleFavorite = async (req, res) => {
     const { albumId, imageId } = req.params;
     const { isFavourite } = req.body;
 
-    const album = await Album.findOne({ albumId });
+    const album = await AlbumModel.findOne({ albumId });
 
     if (!album) return res.status(404).json({ message: "Album not found" });
 
@@ -165,7 +165,7 @@ export const addComment = async (req, res) => {
     const { albumId, imageId } = req.params;
     const { text } = req.body;
 
-    const album = await Album.findOne({
+    const album = await AlbumModel.findOne({
       albumId,
       $or: [
         { ownerId: req.user.id },
