@@ -16,6 +16,8 @@ export const uploadImage = async (req, res) => {
     }
 
     const album = await AlbumModel.findOne({ albumId });
+    console.log(album);
+
     if (!album) {
       return res.status(404).json({
         success: false,
@@ -31,7 +33,7 @@ export const uploadImage = async (req, res) => {
     }
 
     //upload to cloudinary which will return image_url
-    const uploadResult = await cloudinary.uploader.upload(req.file, {
+    const uploadResult = await cloudinary.uploader.upload(file.path, {
       folder: "kaviosPix",
     });
 
@@ -69,6 +71,7 @@ export const getImages = async (req, res) => {
         { sharedWith: req.user.email.toLowerCase() },
       ],
     });
+    console.log(album);
 
     if (!album) {
       return res.status(404).json({
@@ -77,16 +80,18 @@ export const getImages = async (req, res) => {
       });
     }
 
-    const images = await Image.find({ albumId: album._id });
+    const images = await ImageModel.find({ albumId: album._id });
 
     return res.status(200).json({
       success: true,
       data: images,
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
+      error: error.message,
     });
   }
 };

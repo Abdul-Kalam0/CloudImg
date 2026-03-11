@@ -15,7 +15,7 @@ import {
 router.use(authMiddleware);
 
 //POST   /albums/:albumId/images
-router.post("/:albumId/images", upload.single("image"), uploadImage);
+router.post("/:albumId/upload", upload.single("image"), uploadImage);
 //GET    /albums/:albumId/images
 router.get("/:albumId/images", getImages);
 //GET    /albums/:albumId/images/favorites

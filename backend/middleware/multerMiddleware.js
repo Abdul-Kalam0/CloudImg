@@ -1,7 +1,7 @@
 import multer from "multer";
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({});
 
-const fileFilter = (req, res, cb) => {
+const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
 
   if (allowedTypes.includes(file.mimetype)) {
