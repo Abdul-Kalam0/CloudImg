@@ -8,6 +8,8 @@ export const AlbumDetails = () => {
 
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [album, setAlbums] = useState();
 
   const getImages = async () => {
     try {
@@ -20,29 +22,50 @@ export const AlbumDetails = () => {
     }
   };
 
+  const getAlbum = async () => {
+    try {
+      const res = await api.get(`/albums/${albumId}`);
+      setAlbums(res.data.data);
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error fetching album");
+    }
+  };
+
   useEffect(() => {
     getImages();
+    getAlbum();
   }, [albumId]);
 
-  if (loading)
+  if (loading) {
     return (
       <h1 className="text-center mt-10 text-lg font-semibold">
         Loading Images...
       </h1>
     );
+  }
 
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Album Images</h1>
-
-        <NavLink
-          to={`/albums/${albumId}/upload`}
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-        >
-          Upload Image
+      <div className="grid grid-cols-3 items-center mb-8">
+        {/* Back button */}
+        <NavLink to="/albums" className="text-gray-600 hover:text-black">
+          ← Back
         </NavLink>
+
+        {/* Center Title */}
+        <h1 className="text-3xl font-bold text-center">
+          {album?.name || "Album"}
+        </h1>
+        {/* Upload Button */}
+        <div className="flex justify-end">
+          <NavLink
+            to={`/albums/${albumId}/upload`}
+            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+          >
+            Upload Image
+          </NavLink>
+        </div>
       </div>
 
       {/* Empty state */}
@@ -53,8 +76,35 @@ export const AlbumDetails = () => {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {images.map((image) => (
-            <ImageCard key={image.imageId} image={image} />
+            <ImageCard
+              key={image.imageId}
+              image={image}
+              setSelectedImage={setSelectedImage}
+            />
           ))}
+        </div>
+      )}
+
+      {/* Image Preview Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          {/* Close button */}
+          <button
+            className="absolute top-6 right-6 text-white text-3xl"
+            onClick={() => setSelectedImage(null)}
+          >
+            ✕
+          </button>
+
+          {/* Image */}
+          <img
+            src={selectedImage.imageUrl}
+            alt={selectedImage.name}
+            className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
+          />
         </div>
       )}
     </div>

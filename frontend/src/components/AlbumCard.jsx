@@ -2,10 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaFolder } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import api from "../services/api";
 
-export const AlbumCard = ({ album }) => {
+export const AlbumCard = ({ album, onDelete }) => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/albums/${album.albumId}`);
+      alert("Album Deleted successfully");
+      onDelete(album.albumId);
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error in deleting album");
+    }
+  };
 
   return (
     <div className="relative border rounded-xl p-6 shadow hover:shadow-xl transform hover:scale-105 transition duration-300 cursor-pointer">
@@ -27,7 +38,10 @@ export const AlbumCard = ({ album }) => {
             Rename
           </button>
 
-          <button className="block w-full text-left px-2 py-1 hover:bg-gray-100">
+          <button
+            onClick={handleDelete}
+            className="block w-full text-left px-2 py-1 hover:bg-gray-100"
+          >
             Delete
           </button>
 

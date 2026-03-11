@@ -18,7 +18,6 @@ export const UploadImage = () => {
     if (!selectedFile) return;
 
     setFile(selectedFile);
-
     setPreview(URL.createObjectURL(selectedFile));
   };
 
@@ -26,12 +25,12 @@ export const UploadImage = () => {
     e.preventDefault();
 
     try {
-      setUploading(true);
-
       if (!file) {
         alert("Please select an image");
         return;
       }
+
+      setUploading(true);
 
       const formData = new FormData();
 
@@ -50,85 +49,90 @@ export const UploadImage = () => {
       navigate(`/albums/${albumId}`);
     } catch (error) {
       alert(error?.response?.data?.message || "Uploading failed");
+    } finally {
+      setUploading(false);
     }
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Upload Image</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white shadow-xl rounded-2xl w-full max-w-md p-8">
+        <h1 className="text-2xl font-bold text-center mb-6">Upload Image</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Image Preview */}
-        {preview && (
-          <img
-            src={preview}
-            alt="Preview"
-            className="w-full h-48 object-cover rounded-lg"
-          />
-        )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Preview */}
+          {preview && (
+            <div className="w-full h-48 overflow-hidden rounded-lg border">
+              <img
+                src={preview}
+                alt="Preview"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
 
-        {/* File Input */}
-        <div>
-          <label className="block mb-1 font-medium">Select Image</label>
+          {/* File Input */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Select Image
+            </label>
 
-          <input
-            type="file"
-            accept="image/*"
-            required
-            onChange={handleFileChange}
-          />
-        </div>
+            <input
+              type="file"
+              accept="image/*"
+              required
+              onChange={handleFileChange}
+              className="w-full border rounded-lg p-2"
+            />
+          </div>
 
-        {/* Image Name */}
-        <div>
-          <label className="block mb-1 font-medium">Image Name</label>
+          {/* Image Name */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Image Name</label>
 
-          <input
-            type="text"
-            placeholder="Enter image name"
-            required
-            className="w-full border rounded-lg p-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+            <input
+              type="text"
+              placeholder="Enter image name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
 
-        {/* Tags */}
-        <div>
-          <label className="block mb-1 font-medium">Tags</label>
+          {/* Tags */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Tags</label>
 
-          <input
-            type="text"
-            placeholder="nature, travel, beach"
-            className="w-full border rounded-lg p-2"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
-        </div>
+            <input
+              type="text"
+              placeholder="nature, travel, beach"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
 
-        {/* Buttons */}
-        <div className="flex gap-4">
-          <button
-            type="submit"
-            disabled={uploading}
-            className={`px-4 py-2 rounded-lg text-white ${
-              uploading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-purple-600 hover:bg-purple-700"
-            }`}
-          >
-            {uploading ? "Uploading..." : "Upload"}
-          </button>
+          {/* Buttons */}
+          <div className="flex justify-between items-center">
+            <button
+              type="button"
+              onClick={() => navigate(`/albums/${albumId}`)}
+              className="text-gray-600 hover:underline"
+            >
+              ← Back
+            </button>
 
-          <button
-            type="button"
-            onClick={() => navigate(`/albums/${albumId}`)}
-            className="border px-4 py-2 rounded-lg"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+            <button
+              type="submit"
+              disabled={uploading}
+              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition disabled:bg-gray-400"
+            >
+              {uploading ? "Uploading..." : "Upload"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

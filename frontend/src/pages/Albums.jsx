@@ -18,6 +18,10 @@ export const Albums = () => {
     }
   };
 
+  const handleDeleteAlbum = (albumId) => {
+    setAlbums((prev) => prev.filter((album) => album.albumId !== albumId));
+  };
+
   useEffect(() => {
     fetchAlbums();
   }, []);
@@ -41,7 +45,11 @@ export const Albums = () => {
       {/* Album Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {albums.map((album) => (
-          <AlbumCard key={album.albumId} album={album} />
+          <AlbumCard
+            key={album.albumId}
+            album={album}
+            onDelete={handleDeleteAlbum}
+          />
         ))}
       </div>
     </div>
