@@ -34,20 +34,20 @@ export const AlbumDetails = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Album Images</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Album Images</h1>
 
         <NavLink
-          to={`/albums/${albumId}/images`}
+          to={`/albums/${albumId}/upload`}
           className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
         >
           Upload Image
         </NavLink>
       </div>
 
-      {/* Image Section */}
+      {/* Empty state */}
       {images.length === 0 ? (
-        <p className="text-gray-500 text-center mt-10">
+        <p className="text-gray-500 text-center mt-20">
           No images in this album
         </p>
       ) : (

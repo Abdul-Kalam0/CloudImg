@@ -61,7 +61,7 @@ export const Login = () => {
           {loading ? "Loging..." : "Login"}
         </button>
         <h6>
-          Don't have accout? <NavLink to={"/"}>Register</NavLink>
+          Don't have accout? <NavLink to={"/register"}>Register</NavLink>
         </h6>
       </form>
     </div>

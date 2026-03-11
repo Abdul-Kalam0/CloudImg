@@ -19,8 +19,8 @@ const router = createBrowserRouter([
   {
     element: <PublicRoute />,
     children: [
-      { path: "/", element: <Register /> },
-      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/", element: <Login /> },
     ],
   },
 
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
           { path: "/setting", element: <Setting /> },
           { path: "/create-album", element: <CreateAlbum /> },
           { path: "/albums/:albumId", element: <AlbumDetails /> },
-          { path: "/albums/:albumId/images", element: <UploadImage /> },
+          { path: "/albums/:albumId/upload", element: <UploadImage /> },
         ],
       },
     ],

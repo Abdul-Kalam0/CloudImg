@@ -84,7 +84,7 @@ export const Register = () => {
           {loading ? "Registering..." : "Register"}
         </button>
         <h6>
-          Already have an accout? <NavLink to={"/login"}>Login</NavLink>
+          Already have an accout? <NavLink to={"/"}>Login</NavLink>
         </h6>
       </form>
     </div>
