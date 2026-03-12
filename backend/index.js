@@ -9,7 +9,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    //origin: "http://localhost:5173",
+    origin: "https://cloud-img-001.vercel.app",
     credentials: true,
   }),
 );
