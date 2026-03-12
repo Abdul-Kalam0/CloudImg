@@ -4,6 +4,22 @@ import UserModel from "../models/User.js";
 import dotenv from "dotenv";
 dotenv.config();
 
+export const me = async (req, res) => {
+  const { email } = req.user;
+  try {
+    const user = await UserModel.findOne({ email });
+    return res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 export const register = async (req, res) => {
   let { email, password, name } = req.body;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -126,28 +142,12 @@ export const login = async (req, res) => {
   }
 };
 
-export const me = async (req, res) => {
-  const { email } = req.user;
-  try {
-    const user = await UserModel.findOne({ email });
-    return res.status(200).json({
-      success: true,
-      data: user,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
-
 export const logout = async (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
       secure: false,
-      sameSite: "strict",
+      sameSite: "none",
     });
     return res.status(200).json({
       success: true,

@@ -7,6 +7,9 @@ dotenv.config();
 
 const app = express();
 
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(
   cors({
     //origin: "http://localhost:5173",
@@ -14,9 +17,6 @@ app.use(
     credentials: true,
   }),
 );
-
-app.use(express.json());
-app.use(cookieParser());
 
 import imageRoutes from "./routes/imagesRoutes.js";
 import albumRoutes from "./routes/albumRoutes.js";
