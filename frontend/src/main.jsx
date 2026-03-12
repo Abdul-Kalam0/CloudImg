@@ -30,9 +30,7 @@ const router = createBrowserRouter([
       {
         element: <DashboardLayouts />,
         children: [
-          { path: "/dashboard", element: <Dashboard /> },
           { path: "/albums", element: <Albums /> },
-          { path: "/upload", element: <Upload /> },
           { path: "/profile", element: <Profile /> },
           { path: "/setting", element: <Setting /> },
           { path: "/create-album", element: <CreateAlbum /> },
