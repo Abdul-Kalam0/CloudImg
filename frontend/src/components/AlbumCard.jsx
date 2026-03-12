@@ -40,7 +40,7 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       if (!email) return;
 
-      await api.post(`/albums/${album.albumId}/share`);
+      await api.post(`/albums/${album.albumId}/share`, { email });
       setShowMenu(false); // menu closes immediately
       alert("Album shared successfully");
     } catch (error) {
