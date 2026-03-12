@@ -11,7 +11,7 @@ export const ImageCard = ({ image, setSelectedImage }) => {
         src={image.imageUrl}
         alt={image.name}
         onClick={() => setSelectedImage(image)}
-        className="w-full h-48 object-cover cursor-pointer hover:scale-105 transition"
+        className="w-full h-48 sm:h-52 md:h-56 object-cover cursor-pointer hover:scale-105 transition"
       />
 
       {/* Image name */}

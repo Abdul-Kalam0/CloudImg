@@ -32,22 +32,23 @@ export const Albums = () => {
         <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
+
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Albums</h1>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold">Albums</h1>
 
         <NavLink
           to="/create-album"
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-center"
         >
           + Create Album
         </NavLink>
       </div>
 
       {/* Album Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {albums.map((album) => (
           <AlbumCard
             key={album.albumId}

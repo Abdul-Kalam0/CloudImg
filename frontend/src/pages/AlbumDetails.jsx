@@ -44,27 +44,23 @@ export const AlbumDetails = () => {
     );
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="grid grid-cols-3 items-center mb-8">
-        {/* Back button */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <NavLink to="/albums" className="text-gray-600 hover:text-black">
           ← Back
         </NavLink>
 
-        {/* Center Title */}
-        <h1 className="text-3xl font-bold text-center">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center flex-1">
           {album?.name || "Album"}
         </h1>
-        {/* Upload Button */}
-        <div className="flex justify-end">
-          <NavLink
-            to={`/albums/${albumId}/upload`}
-            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-          >
-            Upload Image
-          </NavLink>
-        </div>
+
+        <NavLink
+          to={`/albums/${albumId}/upload`}
+          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-center"
+        >
+          Upload Image
+        </NavLink>
       </div>
 
       {/* Empty state */}
@@ -73,7 +69,7 @@ export const AlbumDetails = () => {
           No images in this album
         </p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {images.map((image) => (
             <ImageCard
               key={image.imageId}
@@ -87,10 +83,10 @@ export const AlbumDetails = () => {
       {/* Image Preview Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* Close button */}
+          {/* Close Button */}
           <button
             className="absolute top-6 right-6 text-white text-3xl"
             onClick={() => setSelectedImage(null)}
@@ -102,7 +98,8 @@ export const AlbumDetails = () => {
           <img
             src={selectedImage.imageUrl}
             alt={selectedImage.name}
-            className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-full sm:max-w-[90%] rounded-lg shadow-lg"
           />
         </div>
       )}
