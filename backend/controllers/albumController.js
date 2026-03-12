@@ -93,15 +93,9 @@ export const getAlbums = async (req, res) => {
 
 export const updateAlbum = async (req, res) => {
   const { albumId } = req.params;
-  const { description, name } = req.body;
-  try {
-    if (!albumId) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Album Id",
-      });
-    }
+  const { name, description } = req.body;
 
+  try {
     const album = await AlbumModel.findOne({ albumId });
 
     if (!album) {
@@ -112,14 +106,20 @@ export const updateAlbum = async (req, res) => {
     }
 
     if (album.ownerId.toString() !== req.user.id) {
-      return res.status(401).json({
+      return res.status(403).json({
         success: false,
         message: "Only owner can update album",
       });
     }
 
-    album.description = description?.trim() || "";
-    album.name = name?.trim() || "";
+    if (name) {
+      album.name = name.trim();
+    }
+
+    if (description) {
+      album.description = description.trim();
+    }
+
     await album.save();
 
     return res.status(200).json({
