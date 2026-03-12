@@ -93,7 +93,7 @@ export const getAlbums = async (req, res) => {
 
 export const updateAlbum = async (req, res) => {
   const { albumId } = req.params;
-  const { description } = req.body;
+  const { description, name } = req.body;
   try {
     if (!albumId) {
       return res.status(400).json({
@@ -119,6 +119,7 @@ export const updateAlbum = async (req, res) => {
     }
 
     album.description = description?.trim() || "";
+    album.name = name?.trim() || "";
     await album.save();
 
     return res.status(200).json({

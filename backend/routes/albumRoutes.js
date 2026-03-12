@@ -19,7 +19,7 @@ router.get("/:albumId", getAlbum);
 router.get("/", getAlbums);
 
 //Update
-//router.put("/:albumId", updateAlbum);
+router.put("/:albumId", updateAlbum);
 
 // Share
 //router.post("/:albumId/share", shareAlbum);
