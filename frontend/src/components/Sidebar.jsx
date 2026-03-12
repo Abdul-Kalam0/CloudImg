@@ -21,33 +21,37 @@ export const Sidebar = () => {
      ${isActive ? "bg-gray-800 text-purple-400" : ""}`;
 
   return (
-    <div className="w-64 bg-gray-900 text-white p-6 min-h-screen">
-      <h1 className="text-2xl font-bold mb-8">KaviosPix</h1>
+    <div className="w-64 bg-gray-900 text-white p-6 min-h-screen flex flex-col justify-between">
+      {/* Top Section */}
+      <div>
+        <h1 className="text-2xl font-bold mb-8">KaviosPix</h1>
 
-      <nav className="flex flex-col space-y-4">
-        <NavLink to="/albums" className={navStyle}>
-          <FaFolder />
-          My Albums
-        </NavLink>
+        <nav className="flex flex-col space-y-4">
+          <NavLink to="/albums" className={navStyle}>
+            <FaFolder />
+            My Albums
+          </NavLink>
 
-        <NavLink to="/profile" className={navStyle}>
-          <FaUser />
-          Profile
-        </NavLink>
+          <NavLink to="/profile" className={navStyle}>
+            <FaUser />
+            Profile
+          </NavLink>
 
-        <NavLink to="/setting" className={navStyle}>
-          <FaCog />
-          Setting
-        </NavLink>
+          {/* <NavLink to="/setting" className={navStyle}>
+            <FaCog />
+            Setting
+          </NavLink> */}
+        </nav>
+      </div>
 
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-3 p-2 rounded transform transition duration-200 hover:bg-gray-800 hover:text-purple-400 hover:scale-105"
-        >
-          <FaSignOutAlt />
-          Logout
-        </button>
-      </nav>
+      {/* Bottom Logout */}
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-3 p-2 rounded transform transition duration-200 hover:bg-red-600 hover:scale-105"
+      >
+        <FaSignOutAlt />
+        Logout
+      </button>
     </div>
   );
 };
