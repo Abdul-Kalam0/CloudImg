@@ -93,7 +93,6 @@ export const UploadImage = () => {
             <input
               type="text"
               placeholder="Enter image name"
-              required
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
