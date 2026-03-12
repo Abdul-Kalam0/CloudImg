@@ -26,8 +26,12 @@ export const Albums = () => {
     fetchAlbums();
   }, []);
 
-  if (loading) return <h1 className="p-6">Fetching Albums...</h1>;
-
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   return (
     <div className="p-6">
       {/* Header */}
