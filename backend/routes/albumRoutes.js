@@ -7,6 +7,7 @@ import {
   getAlbum,
   getAlbums,
   deleteAlbum,
+  updateAlbum,
 } from "../controllers/albumController.js";
 
 router.use(authMiddleware);
