@@ -165,3 +165,58 @@ export const deleteAlbum = async (req, res) => {
     });
   }
 };
+
+export const shareAlbum = async (req, res) => {
+  try {
+    const { albumId } = req.params;
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
+
+    const album = await AlbumModel.findOne({ albumId });
+
+    if (!album) {
+      return res.status(404).json({
+        success: false,
+        message: "Album not found",
+      });
+    }
+
+    // Only owner can share
+    if (album.ownerId.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Only owner can share this album",
+      });
+    }
+
+    const emailLower = email.toLowerCase().trim();
+
+    if (album.sharedWith.includes(emailLower)) {
+      return res.status(400).json({
+        success: false,
+        message: "Album already shared with this user",
+      });
+    }
+
+    album.sharedWith.push(emailLower);
+
+    await album.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Album shared successfully",
+      data: album,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

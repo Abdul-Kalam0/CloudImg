@@ -21,16 +21,30 @@ export const AlbumCard = ({ album, onDelete }) => {
 
   const handleUpdate = async () => {
     try {
-      const newName = prompt("Enter new album name", album.name);
+      const newName = prompt("Enter new album name");
 
-      if (!newName) return;
+      if (!newName || !newName.trim()) return;
 
-      await api.put(`/albums/${album.albumId}`, { name: newName });
+      await api.put(`/albums/${album.albumId}`, { name: newName.trim() });
       setShowMenu(false); // menu closes immediately
       alert("Album renamed successfully");
       window.location.reload();
     } catch (error) {
       alert(error?.response?.data?.message || "Error updating album");
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const email = prompt("Enter email to share album");
+
+      if (!email) return;
+
+      await api.post(`/albums/${album.albumId}/share`);
+      setShowMenu(false); // menu closes immediately
+      alert("Album shared successfully");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error sharing album");
     }
   };
 
@@ -69,7 +83,10 @@ export const AlbumCard = ({ album, onDelete }) => {
           </button>
 
           {/* Share */}
-          <button className="flex items-center gap-2 w-full text-left px-2 py-1 hover:bg-gray-100">
+          <button
+            className="flex items-center gap-2 w-full text-left px-2 py-1 hover:bg-gray-100"
+            onClick={handleShare}
+          >
             <FaShareAlt className="text-gray-600" />
             Share
           </button>
