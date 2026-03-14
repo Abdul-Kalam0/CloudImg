@@ -15,6 +15,7 @@ export const UploadImage = () => {
   const MAX_SIZE = 5 * 1024 * 1024; // 5MB
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+    console.log(selectedFile.size);
 
     if (!selectedFile) return;
 
