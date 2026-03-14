@@ -31,6 +31,10 @@ export const AlbumDetails = () => {
     }
   };
 
+  const handleDelete = (imageId) => {
+    setImages((prev) => prev.filter((img) => img.imageId !== imageId));
+  };
+
   useEffect(() => {
     getImages();
     getAlbum();
@@ -75,6 +79,7 @@ export const AlbumDetails = () => {
               key={image.imageId}
               image={image}
               setSelectedImage={setSelectedImage}
+              onDelete={handleDelete}
             />
           ))}
         </div>

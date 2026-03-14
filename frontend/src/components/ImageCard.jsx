@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-export const ImageCard = ({ image, setSelectedImage }) => {
+export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,9 +36,9 @@ export const ImageCard = ({ image, setSelectedImage }) => {
 
       setMenuOpen(false);
 
-      alert("Image deleted successfully");
+      onDelete(image.imageId);
 
-      navigate(`/albums/${image.albumId}`);
+      alert("Image deleted successfully");
     } catch (error) {
       alert(error?.response?.data?.message || "Error deleting image");
     }
