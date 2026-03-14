@@ -1,8 +1,18 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";
+import api from "../services/api";
 
 export const ImageCard = ({ image, setSelectedImage }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const deleteHandle = async () => {
+    try {
+      await api.delete(`/albums/${image.albumId}/image/${image.imageId}`);
+      alert("Image deleted successfully");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error deleting image");
+    }
+  };
 
   return (
     <div className="relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
@@ -34,7 +44,10 @@ export const ImageCard = ({ image, setSelectedImage }) => {
             Favourite
           </button>
 
-          <button className="block w-full text-left px-2 py-1 hover:bg-gray-100 text-red-500">
+          <button
+            className="block w-full text-left px-2 py-1 hover:bg-gray-100 text-red-500"
+            onClick={deleteHandle}
+          >
             Delete
           </button>
         </div>
