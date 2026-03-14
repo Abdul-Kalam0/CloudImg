@@ -21,9 +21,12 @@ app.use(
 import imageRoutes from "./routes/imagesRoutes.js";
 import albumRoutes from "./routes/albumRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 app.use("/auth", authRoutes);
 app.use("/albums", albumRoutes);
 app.use("/albums", imageRoutes);
+
+app.use(errorHandler);
 
 export default app;
