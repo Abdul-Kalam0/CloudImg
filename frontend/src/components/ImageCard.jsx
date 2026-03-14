@@ -7,7 +7,7 @@ export const ImageCard = ({ image, setSelectedImage }) => {
 
   const deleteHandle = async () => {
     try {
-      await api.delete(`/albums/${image.albumId}/image/${image.imageId}`);
+      await api.delete(`/albums/${image.albumId}/images/${image.imageId}`);
       alert("Image deleted successfully");
     } catch (error) {
       alert(error?.response?.data?.message || "Error deleting image");
