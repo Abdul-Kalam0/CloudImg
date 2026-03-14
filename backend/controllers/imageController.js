@@ -15,6 +15,13 @@ export const uploadImage = async (req, res) => {
       });
     }
 
+    if (file.size > 5 * 1024 * 1024) {
+      return res.status(400).json({
+        success: false,
+        message: "Image size must be less than 5MB",
+      });
+    }
+
     const album = await AlbumModel.findOne({ albumId });
 
     if (!album) {

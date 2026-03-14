@@ -1,14 +1,17 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const ImageCard = ({ image, setSelectedImage }) => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const deleteHandle = async () => {
     try {
       await api.delete(`/albums/${image.albumId}/images/${image.imageId}`);
       alert("Image deleted successfully");
+      navigate(`/albums/${image.albumId}`);
     } catch (error) {
       alert(error?.response?.data?.message || "Error deleting image");
     }

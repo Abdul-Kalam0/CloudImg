@@ -12,10 +12,16 @@ export const UploadImage = () => {
   const [tags, setTags] = useState("");
   const [uploading, setUploading] = useState(false);
 
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
     if (!selectedFile) return;
+
+    if (selectedFile.size > MAX_SIZE) {
+      alert("Image size must be less than 5MB");
+      return;
+    }
 
     setFile(selectedFile);
     setPreview(URL.createObjectURL(selectedFile));
