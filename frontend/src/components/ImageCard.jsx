@@ -1,4 +1,5 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaHeart, FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,18 @@ export const ImageCard = ({ image, setSelectedImage }) => {
     }
   };
 
+  const favouriteHandle = async () => {
+    try {
+      await api.put(
+        `/albums/${image.albumId}/images/${image.imageId}/favorite`,
+        { isFavourite: !image.isFavourite },
+      );
+      alert("Favourite updated");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error updating favourite");
+    }
+  };
+
   return (
     <div className="relative border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
       {/* Image */}
@@ -27,30 +40,32 @@ export const ImageCard = ({ image, setSelectedImage }) => {
         className="w-full h-48 sm:h-52 md:h-56 object-cover cursor-pointer hover:scale-105 transition"
       />
 
-      {/* Image name */}
-      <div className="p-2">
-        <p className="text-sm font-medium truncate">{image.name}</p>
-      </div>
-
       {/* Menu button */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="absolute top-2 right-2 text-white"
+        className="absolute top-2 right-2 text-white bg-black/40 p-1 rounded-full"
       >
         <BsThreeDotsVertical />
       </button>
 
       {/* Dropdown */}
       {menuOpen && (
-        <div className="absolute right-2 top-8 bg-white border rounded shadow p-2 w-32">
-          <button className="block w-full text-left px-2 py-1 hover:bg-gray-100">
+        <div className="absolute right-2 top-10 bg-white border rounded-xl shadow-lg w-40 py-2 z-20">
+          {/* Favourite */}
+          <button
+            onClick={favouriteHandle}
+            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 text-gray-700"
+          >
+            <FaHeart className="text-gray-600" />
             Favourite
           </button>
 
+          {/* Delete */}
           <button
-            className="block w-full text-left px-2 py-1 hover:bg-gray-100 text-red-500"
             onClick={deleteHandle}
+            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 text-red-500"
           >
+            <FaTrash />
             Delete
           </button>
         </div>

@@ -97,6 +97,7 @@ export const AlbumDetails = () => {
           {/* Image */}
           <img
             src={selectedImage.imageUrl}
+            alt={selectedImage.name}
             onClick={(e) => e.stopPropagation()}
             className="max-h-[90vh] max-w-full sm:max-w-[90%] rounded-lg shadow-lg"
           />
