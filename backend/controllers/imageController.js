@@ -1,6 +1,7 @@
 import cloudinary from "../config/cloudinary.js";
 import Image from "../models/image.js";
 import AlbumModel from "../models/Album.js";
+import fs from "fs";
 
 export const uploadImage = async (req, res) => {
   try {
@@ -12,13 +13,6 @@ export const uploadImage = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Image file required",
-      });
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      return res.status(400).json({
-        success: false,
-        message: "Image size must be less than 5MB",
       });
     }
 
@@ -42,6 +36,9 @@ export const uploadImage = async (req, res) => {
     const uploadResult = await cloudinary.uploader.upload(file.path, {
       folder: "kaviosPix",
     });
+
+    //multer store file before uploading on cloudinary so delete from server, otherwise server disk will fill up.
+    fs.unlinkSync(file.path);
 
     const image = await Image.create({
       albumId: album.albumId,
