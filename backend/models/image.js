@@ -10,10 +10,15 @@ const imageSchema = new mongoose.Schema(
     },
 
     albumId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Album",
+      type: String,
       required: true,
       index: true,
+    },
+
+    //cloudinary image_Id
+    publicId: {
+      type: String,
+      required: true,
     },
 
     imageUrl: {

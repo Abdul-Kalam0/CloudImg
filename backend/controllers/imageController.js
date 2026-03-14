@@ -16,7 +16,6 @@ export const uploadImage = async (req, res) => {
     }
 
     const album = await AlbumModel.findOne({ albumId });
-    console.log(album);
 
     if (!album) {
       return res.status(404).json({
@@ -38,8 +37,9 @@ export const uploadImage = async (req, res) => {
     });
 
     const image = await Image.create({
-      albumId: album._id,
+      albumId: album.albumId,
       imageUrl: uploadResult.secure_url,
+      publicId: uploadResult.public_id,
       name: file.originalname,
       size: file.size,
       tags: tags ? tags.split(",").map((t) => t.trim()) : [],
@@ -79,7 +79,7 @@ export const getImages = async (req, res) => {
       });
     }
 
-    const images = await Image.find({ albumId: album._id });
+    const images = await Image.find({ albumId });
 
     return res.status(200).json({
       success: true,
@@ -111,7 +111,7 @@ export const getFavoriteImages = async (req, res) => {
     }
 
     const images = await Image.find({
-      albumId: album._id,
+      albumId,
       isFavourite: true,
     });
 
@@ -139,7 +139,7 @@ export const toggleFavorite = async (req, res) => {
       });
     }
 
-    const image = await Image.findOne({ imageId });
+    const image = await Image.findOne({ imageId, albumId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
@@ -175,7 +175,7 @@ export const addComment = async (req, res) => {
       return res.status(404).json({ message: "Album not found" });
     }
 
-    const image = await Image.findOne({ imageId });
+    const image = await Image.findOne({ imageId, albumId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
@@ -216,12 +216,13 @@ export const deleteImage = async (req, res) => {
       });
     }
 
-    const image = await Image.findOne({ imageId });
+    const image = await Image.findOne({ imageId, albumId });
 
     if (!image) {
       return res.status(404).json({ message: "Image not found" });
     }
 
+    await cloudinary.uploader.destroy(image.publicId);
     await image.deleteOne();
     return res.status(200).json({
       success: true,
