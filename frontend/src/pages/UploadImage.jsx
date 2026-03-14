@@ -21,7 +21,7 @@ export const UploadImage = () => {
     if (selectedFile.size > MAX_SIZE) {
       alert("Image size must be less than 5MB");
 
-      e.target.vaule = "";
+      e.target.value = "";
       setFile(null);
       setPreview(null);
       return;
