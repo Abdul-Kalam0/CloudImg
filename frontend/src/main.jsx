@@ -12,6 +12,8 @@ import { Setting } from "./pages/Setting.jsx";
 import { CreateAlbum } from "./pages/CreateAlbum.jsx";
 import { AlbumDetails } from "./pages/AlbumDetails.jsx";
 import { UploadImage } from "./pages/UploadImage.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -41,5 +43,16 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />,
+  <>
+    <RouterProvider router={router} />,{/* ✅ Toast container (ONLY ONCE) */}
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      draggable
+    />
+  </>,
 );

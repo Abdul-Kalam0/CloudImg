@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../services/api";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -27,11 +28,11 @@ export const Login = () => {
 
       await api.post("/auth/login", form);
 
-      alert("Login successfully");
+      toast.success("Login successfully");
 
       navigate("/albums");
     } catch (error) {
-      alert(error?.response?.data?.message || "Login failed");
+      toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }

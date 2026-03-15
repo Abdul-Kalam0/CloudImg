@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { FaFolder, FaEdit, FaTrash, FaShareAlt } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 export const AlbumCard = ({ album, onDelete }) => {
   const navigate = useNavigate();
@@ -36,9 +37,9 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       onDelete(album.albumId);
 
-      alert("Album Deleted successfully");
+      toast.success("Album Deleted successfully");
     } catch (error) {
-      alert(error?.response?.data?.message || "Error deleting album");
+      toast.error(error?.response?.data?.message || "Error deleting album");
     }
   };
 
@@ -56,11 +57,11 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       setShowMenu(false);
 
-      alert("Album renamed successfully");
+      toast.success("Album renamed successfully");
 
       window.location.reload();
     } catch (error) {
-      alert(error?.response?.data?.message || "Error updating album");
+      toast.error(error?.response?.data?.message || "Error updating album");
     }
   };
 
