@@ -3,6 +3,7 @@ import { FaHeart, FaTrash, FaCommentDots } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import api from "../services/api";
 import { CommentModal } from "./CommentModal";
+import { toast } from "react-toastify";
 
 export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,9 +38,9 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
 
       onDelete(image.imageId);
 
-      alert("Image deleted successfully");
+      toast.success("Image deleted successfully");
     } catch (error) {
-      alert(error?.response?.data?.message || "Error deleting image");
+      toast.error(error?.response?.data?.message || "Error deleting image");
     }
   };
 
@@ -58,7 +59,7 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
 
       setMenuOpen(false);
     } catch (error) {
-      alert(error?.response?.data?.message || "Error updating favourite");
+      toast.error(error?.response?.data?.message || "Error updating favourite");
     }
   };
 

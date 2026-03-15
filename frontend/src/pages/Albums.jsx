@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import api from "../services/api";
 import { AlbumCard } from "../components/AlbumCard";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Albums = () => {
   const [loading, setLoading] = useState(true);
@@ -12,7 +13,7 @@ export const Albums = () => {
       const res = await api.get("/albums");
       setAlbums(res.data.data);
     } catch (error) {
-      alert("Error fetching albums");
+      toast.error("Error fetching albums");
     } finally {
       setLoading(false);
     }

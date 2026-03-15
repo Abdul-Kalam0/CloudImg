@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import api from "../services/api";
 import { ImageCard } from "../components/ImageCard";
+import { toast } from "react-toastify";
 
 export const AlbumDetails = () => {
   const { albumId } = useParams();
@@ -16,7 +17,7 @@ export const AlbumDetails = () => {
       const res = await api.get(`/albums/${albumId}/images`);
       setImages(res.data.data);
     } catch (error) {
-      alert(error?.response?.data?.message || "Error fetching images");
+      toast.error(error?.response?.data?.message || "Error fetching images");
     } finally {
       setLoading(false);
     }
@@ -27,7 +28,7 @@ export const AlbumDetails = () => {
       const res = await api.get(`/albums/${albumId}`);
       setAlbums(res.data.data);
     } catch (error) {
-      alert(error?.response?.data?.message || "Error fetching album");
+      toast.error(error?.response?.data?.message || "Error fetching album");
     }
   };
 

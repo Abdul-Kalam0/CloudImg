@@ -77,9 +77,9 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       setShowMenu(false);
 
-      alert("Album shared successfully");
+      toast.success("Album shared successfully");
     } catch (error) {
-      alert(error?.response?.data?.message || "Error sharing album");
+      toast.error(error?.response?.data?.message || "Error sharing album");
     }
   };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 export const Profile = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,9 @@ export const Profile = () => {
       const res = await api.get("/auth/me");
       setUser(res.data.data);
     } catch (error) {
-      alert(error?.response?.data?.message || "Failed to fetch user data");
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch user data",
+      );
     } finally {
       setLoading(false);
     }
@@ -22,7 +25,7 @@ export const Profile = () => {
       const res = await api.get("/albums");
       setAlbums(res.data.data);
     } catch (error) {
-      alert("Albums not found");
+      toast.error("Albums not found");
     }
   };
 

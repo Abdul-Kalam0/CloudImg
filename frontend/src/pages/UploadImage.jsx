@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 export const UploadImage = () => {
   const { albumId } = useParams();
@@ -19,7 +20,7 @@ export const UploadImage = () => {
     if (!selectedFile) return;
 
     if (selectedFile.size > MAX_SIZE) {
-      alert("Image size must be less than 5MB");
+      toast.error("Image size must be less than 5MB");
 
       e.target.value = null;
       setFile(null);
@@ -36,7 +37,7 @@ export const UploadImage = () => {
 
     try {
       if (!file) {
-        alert("Please select an image");
+        toast.error("Please select an image");
         return;
       }
 
@@ -54,11 +55,11 @@ export const UploadImage = () => {
         },
       });
 
-      alert("Image uploaded successfully");
+      toast.success("Image uploaded successfully");
 
       navigate(`/albums/${albumId}`);
     } catch (error) {
-      alert(error?.response?.data?.message || "Uploading failed");
+      toast.error(error?.response?.data?.message || "Uploading failed");
     } finally {
       setUploading(false);
     }

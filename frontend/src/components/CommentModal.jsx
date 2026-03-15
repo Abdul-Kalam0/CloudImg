@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { FaTimes } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export const CommentModal = ({ image, onClose }) => {
   const [comments, setComments] = useState([]);
@@ -17,7 +18,7 @@ export const CommentModal = ({ image, onClose }) => {
 
       setComments(res.data.data || []);
     } catch (error) {
-      alert(error?.response?.data?.message || "Error loading comments");
+      toast.error(error?.response?.data?.message || "Error loading comments");
     } finally {
       setLoading(false);
     }
@@ -44,7 +45,7 @@ export const CommentModal = ({ image, onClose }) => {
 
       fetchComments();
     } catch (error) {
-      alert(error?.response?.data?.message || "Error adding comment");
+      toast.error(error?.response?.data?.message || "Error adding comment");
     }
   };
 

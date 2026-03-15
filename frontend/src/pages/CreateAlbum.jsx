@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../services/api.js";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const CreateAlbum = () => {
   const navigate = useNavigate();
@@ -23,11 +24,11 @@ export const CreateAlbum = () => {
       setName("");
       setDescription("");
 
-      alert("Album created successfully");
+      toast.success("Album created successfully");
 
       navigate("/albums");
     } catch (error) {
-      alert(error?.response?.data?.message || "Error creating album");
+      toast.error(error?.response?.data?.message || "Error creating album");
     } finally {
       setLoading(false);
     }

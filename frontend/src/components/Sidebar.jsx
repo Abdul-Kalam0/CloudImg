@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { FaFolder, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const Sidebar = () => {
       await api.post("/auth/logout");
       navigate("/");
     } catch (error) {
-      alert("Error in logout");
+      toast.error("Error in logout");
     }
   };
 

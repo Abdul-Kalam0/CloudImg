@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import api from "../services/api.js";
+import { toast } from "react-toastify";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -30,10 +31,10 @@ export const Register = () => {
 
       await api.post("/auth/register", form);
 
-      alert("Registered successfully");
+      toast.success("Registered successfully");
       navigate("/");
     } catch (error) {
-      alert(error?.response?.data?.message || "Registration failed");
+      toast.error(error?.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
