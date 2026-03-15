@@ -28,6 +28,21 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
     };
   }, []);
 
+  /* ================= COMMENT IMAGE ================= */
+
+  const commentHandle = async () => {
+    try {
+      const text = prompt("Enter your comment");
+      if (!text || !text.trim()) return;
+      api.post(`/albums/${image.albumId}/images/${image.imageId}/comments`, {
+        text,
+      });
+      alert("Comment added successfully");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Error adding comment");
+    }
+  };
+
   /* ================= DELETE IMAGE ================= */
 
   const deleteHandle = async () => {
@@ -110,6 +125,15 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
               className={`${isFavourite ? "text-red-500" : "text-gray-500"}`}
             />
             {isFavourite ? "Unfavourite" : "Favourite"}
+          </button>
+
+          {/* Comment */}
+          <button
+            onClick={commentHandle}
+            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-100 text-sm"
+          >
+            <FaCommentDots className="text-gray-500" />
+            Comment
           </button>
 
           {/* Delete */}
