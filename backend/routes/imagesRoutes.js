@@ -26,7 +26,7 @@ router.put("/:albumId/images/:imageId/favorite", toggleFavorite);
 //POST   /albums/:albumId/images/:imageId/comments
 router.post("/:albumId/images/:imageId/comments", addComment);
 //GET /albums/:albumId/images/comments
-router.get("/:albumid/images/:imageId/comments", getComments);
+router.get("/:albumId/images/:imageId/comments", getComments);
 //DELETE /albums/:albumId/images/:imageId
 router.delete("/:albumId/images/:imageId", deleteImage);
 
