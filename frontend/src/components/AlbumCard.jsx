@@ -7,9 +7,10 @@ import api from "../services/api";
 export const AlbumCard = ({ album, onDelete }) => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+
   const menuRef = useRef(null);
 
-  /* ================= CLOSE MENU OUTSIDE ================= */
+  /* ================= CLOSE MENU WHEN CLICK OUTSIDE ================= */
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -30,8 +31,11 @@ export const AlbumCard = ({ album, onDelete }) => {
   const handleDelete = async () => {
     try {
       await api.delete(`/albums/${album.albumId}`);
+
       setShowMenu(false);
+
       onDelete(album.albumId);
+
       alert("Album Deleted successfully");
     } catch (error) {
       alert(error?.response?.data?.message || "Error deleting album");
@@ -46,10 +50,14 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       if (!newName || !newName.trim()) return;
 
-      await api.put(`/albums/${album.albumId}`, { name: newName.trim() });
+      await api.put(`/albums/${album.albumId}`, {
+        name: newName.trim(),
+      });
 
       setShowMenu(false);
+
       alert("Album renamed successfully");
+
       window.location.reload();
     } catch (error) {
       alert(error?.response?.data?.message || "Error updating album");
@@ -67,6 +75,7 @@ export const AlbumCard = ({ album, onDelete }) => {
       await api.post(`/albums/${album.albumId}/share`, { email });
 
       setShowMenu(false);
+
       alert("Album shared successfully");
     } catch (error) {
       alert(error?.response?.data?.message || "Error sharing album");
@@ -75,12 +84,17 @@ export const AlbumCard = ({ album, onDelete }) => {
 
   return (
     <>
-      {/* Overlay (mobile friendly) */}
-      {showMenu && <div className="fixed inset-0 bg-black/20 z-10"></div>}
+      {/* Overlay */}
+      {showMenu && (
+        <div
+          className="fixed inset-0 bg-black/20 z-10"
+          onClick={() => setShowMenu(false)}
+        />
+      )}
 
       <div
         ref={menuRef}
-        className="relative border rounded-xl p-4 sm:p-6 shadow hover:shadow-xl transform hover:scale-105 transition duration-300 cursor-pointer bg-white"
+        className="relative border rounded-xl p-4 sm:p-6 shadow hover:shadow-xl transform hover:scale-105 transition duration-300 cursor-pointer bg-white z-20"
       >
         {/* Menu Button */}
         <button
@@ -95,7 +109,8 @@ export const AlbumCard = ({ album, onDelete }) => {
 
         {/* Dropdown Menu */}
         <div
-          className={`absolute right-3 top-10 bg-white border rounded-xl shadow-lg w-44 z-20 overflow-hidden
+          onClick={(e) => e.stopPropagation()}
+          className={`absolute right-3 top-10 bg-white border rounded-xl shadow-lg w-44 z-30 overflow-hidden
           transform transition-all duration-200 origin-top-right
           ${
             showMenu
