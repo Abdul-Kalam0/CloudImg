@@ -1,5 +1,6 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaHeart, FaTrash } from "react-icons/fa";
+import { FaHeart, FaTrash, FaCommentDots } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
