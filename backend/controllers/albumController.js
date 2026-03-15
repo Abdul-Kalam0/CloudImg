@@ -152,7 +152,7 @@ export const deleteAlbum = async (req, res) => {
       });
     }
 
-    await ImageModel.deleteMany({ albumId: album._id });
+    await ImageModel.deleteMany({ albumId });
     await album.deleteOne();
     return res.status(200).json({
       success: true,
