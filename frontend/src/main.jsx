@@ -44,7 +44,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <>
-    <RouterProvider router={router} />,{/* ✅ Toast container (ONLY ONCE) */}
+    <RouterProvider router={router} />,
+    {/* ✅ Toast container (ONLY ONCE) */}
     <ToastContainer
       position="top-right"
       autoClose={2000}

@@ -48,6 +48,15 @@ export const Albums = () => {
         </NavLink>
       </div>
 
+      {albums.length === 0 && (
+        <div className="flex flex-col items-center justify-center h-64 text-center">
+          <p className="text-gray-500 text-lg font-medium">No albums found</p>
+          <p className="text-gray-400 text-sm mt-1">
+            Create your first album to start uploading images
+          </p>
+        </div>
+      )}
+
       {/* Album Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {albums.map((album) => (
