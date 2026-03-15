@@ -10,6 +10,7 @@ import {
   toggleFavorite,
   addComment,
   deleteImage,
+  getComments,
 } from "../controllers/imageController.js";
 
 router.use(authMiddleware);
@@ -24,6 +25,8 @@ router.get("/:albumId/images/favorites", getFavoriteImages);
 router.put("/:albumId/images/:imageId/favorite", toggleFavorite);
 //POST   /albums/:albumId/images/:imageId/comments
 router.post("/:albumId/images/:imageId/comments", addComment);
+//GET /albums/:albumId/images/comments
+router.get("/albums/:albumid/images/comments", getComments);
 //DELETE /albums/:albumId/images/:imageId
 router.delete("/:albumId/images/:imageId", deleteImage);
 

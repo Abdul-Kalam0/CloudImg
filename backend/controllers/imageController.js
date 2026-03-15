@@ -202,6 +202,40 @@ export const addComment = async (req, res) => {
   }
 };
 
+export const getComments = async (req, res) => {
+  try {
+    const { albumId, imageId } = req.params;
+
+    const album = await AlbumModel.findOne({ albumId });
+
+    if (!album) {
+      return res.status(404).json({
+        success: false,
+        message: "Album not found",
+      });
+    }
+
+    const image = await Image.findOne({ imageId, albumId });
+
+    if (!image) {
+      return res.status(404).json({
+        success: false,
+        message: "Image not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: image.comments,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 export const deleteImage = async (req, res) => {
   try {
     const { albumId, imageId } = req.params;
