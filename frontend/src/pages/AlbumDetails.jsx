@@ -68,7 +68,7 @@ export const AlbumDetails = () => {
         </NavLink>
       </div>
 
-      {/* Empty state */}
+      {/* Empty stat */}
       {images.length === 0 ? (
         <p className="text-gray-500 text-center mt-20">
           No images in this album
