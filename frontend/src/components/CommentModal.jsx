@@ -10,7 +10,9 @@ export const CommentModal = ({ image, onClose }) => {
 
   const fetchComments = async () => {
     try {
-      const res = await api.get(`/albums/${image.albumId}/images/favourites`);
+      const res = await api.get(
+        `/albums/${image.albumId}/images/${image.imageId}/comments`,
+      );
 
       const img = res.data.data.find((i) => i.imageId === image.imageId);
 
