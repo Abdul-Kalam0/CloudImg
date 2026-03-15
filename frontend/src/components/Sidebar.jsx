@@ -10,6 +10,7 @@ export const Sidebar = () => {
     try {
       await api.post("/auth/logout");
       navigate("/");
+      toast.success("Logout successfully");
     } catch (error) {
       toast.error("Error in logout");
     }
