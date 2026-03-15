@@ -1,15 +1,13 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaHeart, FaTrash } from "react-icons/fa";
 import { FaHeart, FaTrash, FaCommentDots } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import api from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { CommentModal } from "./CommentModal";
 
 export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
-  const navigate = useNavigate();
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [isFavourite, setIsFavourite] = useState(image.isFavourite);
+  const [showComments, setShowComments] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -29,22 +27,7 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
     };
   }, []);
 
-  /* ================= COMMENT IMAGE ================= */
-
-  const commentHandle = async () => {
-    try {
-      const text = prompt("Enter your comment");
-      if (!text || !text.trim()) return;
-      api.post(`/albums/${image.albumId}/images/${image.imageId}/comments`, {
-        text,
-      });
-      alert("Comment added successfully");
-    } catch (error) {
-      alert(error?.response?.data?.message || "Error adding comment");
-    }
-  };
-
-  /* ================= DELETE IMAGE ================= */
+  /* ================= DELETE ================= */
 
   const deleteHandle = async () => {
     try {
@@ -60,7 +43,7 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
     }
   };
 
-  /* ================= TOGGLE FAVOURITE ================= */
+  /* ================= FAVOURITE ================= */
 
   const favouriteHandle = async () => {
     const newFavourite = !isFavourite;
@@ -72,16 +55,28 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
       );
 
       setIsFavourite(newFavourite);
+
       setMenuOpen(false);
     } catch (error) {
       alert(error?.response?.data?.message || "Error updating favourite");
     }
   };
 
+  /* ================= OPEN COMMENT MODAL ================= */
+
+  const commentHandle = () => {
+    setShowComments(true);
+    setMenuOpen(false);
+  };
+
   return (
     <>
-      {/* Overlay */}
-      {menuOpen && <div className="fixed inset-0 bg-black/20 z-10"></div>}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 z-10"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
 
       <div
         ref={menuRef}
@@ -101,14 +96,13 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
             e.stopPropagation();
             setMenuOpen(!menuOpen);
           }}
-          className="absolute top-2 right-2 text-white bg-black/40 p-2 rounded-full hover:bg-black/60 transition"
+          className="absolute top-2 right-2 text-white bg-black/40 p-2 rounded-full"
         >
           <BsThreeDotsVertical />
         </button>
 
-        {/* Dropdown menu */}
+        {/* Menu */}
         <div
-          onClick={(e) => e.stopPropagation()}
           className={`absolute right-2 top-10 bg-white border rounded-xl shadow-lg w-44 z-20 overflow-hidden
           transform transition-all duration-200 origin-top-right
           ${
@@ -123,7 +117,7 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
             className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-100 text-sm"
           >
             <FaHeart
-              className={`${isFavourite ? "text-red-500" : "text-gray-500"}`}
+              className={isFavourite ? "text-red-500" : "text-gray-500"}
             />
             {isFavourite ? "Unfavourite" : "Favourite"}
           </button>
@@ -134,7 +128,7 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
             className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-100 text-sm"
           >
             <FaCommentDots className="text-gray-500" />
-            Comment
+            Comments
           </button>
 
           {/* Delete */}
@@ -147,6 +141,12 @@ export const ImageCard = ({ image, setSelectedImage, onDelete }) => {
           </button>
         </div>
       </div>
+
+      {/* Comment Modal */}
+
+      {showComments && (
+        <CommentModal image={image} onClose={() => setShowComments(false)} />
+      )}
     </>
   );
 };
