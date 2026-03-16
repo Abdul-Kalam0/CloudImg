@@ -90,7 +90,7 @@ export const AlbumDetails = () => {
           {/* Favourite Images */}
           <button
             onClick={handleFavourite}
-            className="flex items-center gap-2 px-4 py-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 rounded-lg"
+            className="flex items-center gap-2 px-4 py-2 text-sm bg-red-100 text-red-500 hover:bg-red-200 rounded-lg"
           >
             <FaHeart />
             Favourite
