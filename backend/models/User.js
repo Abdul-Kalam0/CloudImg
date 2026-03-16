@@ -22,7 +22,12 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false, // important for Google users
+    },
+
+    provider: {
+      type: String,
+      default: "local",
     },
   },
   {
