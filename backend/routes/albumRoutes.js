@@ -9,6 +9,7 @@ import {
   deleteAlbum,
   updateAlbum,
   shareAlbum,
+  getSharedAlbums,
 } from "../controllers/albumController.js";
 
 router.use(authMiddleware);
@@ -25,6 +26,8 @@ router.put("/:albumId", updateAlbum);
 
 // Share
 router.post("/:albumId/share", shareAlbum);
+
+router.get("/shared-with-me", getSharedAlbums);
 
 //Delete
 router.delete("/:albumId", deleteAlbum);

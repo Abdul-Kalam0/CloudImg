@@ -220,3 +220,22 @@ export const shareAlbum = async (req, res) => {
     });
   }
 };
+
+export const getSharedAlbums = async (req, res) => {
+  const userEmail = req.user.email.toLowerCase();
+  try {
+    const albums = await AlbumModel.find({
+      sharedWith: userEmail,
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: albums,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching shared albums",
+    });
+  }
+};
