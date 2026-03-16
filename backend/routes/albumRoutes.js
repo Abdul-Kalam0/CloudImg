@@ -9,7 +9,7 @@ import {
   deleteAlbum,
   updateAlbum,
   shareAlbum,
-  getSharedAlbums,
+  getSharedWithMe,
 } from "../controllers/albumController.js";
 
 router.use(authMiddleware);
@@ -18,16 +18,18 @@ router.use(authMiddleware);
 router.post("/", createAlbum);
 
 //Read
-router.get("/:albumId", getAlbum);
+
 router.get("/", getAlbums);
+
+router.get("/shared-with-me", getSharedWithMe);
+
+router.get("/:albumId", getAlbum);
 
 //Update
 router.put("/:albumId", updateAlbum);
 
 // Share
 router.post("/:albumId/share", shareAlbum);
-
-router.get("/shared-with-me", getSharedAlbums);
 
 //Delete
 router.delete("/:albumId", deleteAlbum);

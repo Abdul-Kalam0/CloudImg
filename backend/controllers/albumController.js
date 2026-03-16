@@ -221,7 +221,7 @@ export const shareAlbum = async (req, res) => {
   }
 };
 
-export const getSharedAlbums = async (req, res) => {
+export const getSharedWithMe = async (req, res) => {
   const userEmail = req.user.email.toLowerCase();
   try {
     const albums = await AlbumModel.find({
