@@ -73,10 +73,7 @@ export const getAlbum = async (req, res) => {
 export const getAlbums = async (req, res) => {
   try {
     const albums = await AlbumModel.find({
-      $or: [
-        { ownerId: req.user.id },
-        { sharedWith: req.user.email.toLowerCase() },
-      ],
+      ownerId: req.user.id,
     }).sort({ createdAt: -1 });
 
     return res.status(200).json({
