@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { FaFolder, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaFolder, FaUser, FaSignOutAlt, FaShareAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export const Sidebar = () => {
@@ -29,6 +29,11 @@ export const Sidebar = () => {
         <NavLink to="/albums" className={navStyle}>
           <FaFolder />
           My Albums
+        </NavLink>
+
+        <NavLink to="/share-with-me" className={navStyle}>
+          <FaShareAlt />
+          Shared With Me
         </NavLink>
 
         <NavLink to="/profile" className={navStyle}>
