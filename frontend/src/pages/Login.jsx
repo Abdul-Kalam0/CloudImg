@@ -61,29 +61,12 @@ export const Login = () => {
     <div
       className="relative min-h-screen flex items-center justify-center p-6 bg-cover bg-center"
       style={{
-        backgroundImage: "url('/tect-bg.svg')",
+        backgroundImage: "url('/tech-bg.svg')",
       }}
     >
       {/* DARK OVERLAY */}
 
       <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-
-      {/* FLOATING PHOTOS
-
-      <img
-        src="/photo1.jpg"
-        className="absolute w-20 top-20 left-20 rounded-lg shadow-lg animate-float"
-      />
-
-      <img
-        src="/photo2.jpg"
-        className="absolute w-24 bottom-24 right-32 rounded-lg shadow-lg animate-float delay-200"
-      />
-
-      <img
-        src="/photo3.jpg"
-        className="absolute w-16 top-32 right-20 rounded-lg shadow-lg animate-float delay-500"
-      /> */}
 
       {/* LOGIN CARD */}
 
