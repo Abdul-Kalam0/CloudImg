@@ -36,6 +36,20 @@ export const AlbumDetails = () => {
     setImages((prev) => prev.filter((img) => img.imageId !== imageId));
   };
 
+  const hanldeFavourite = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get(`/albums/${albumId}/images/favorites`);
+      setImages(res.data.data);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Error fetching favourites",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getImages();
     getAlbum();
@@ -60,15 +74,35 @@ export const AlbumDetails = () => {
           {album?.name || "Album"}
         </h1>
 
-        <NavLink
-          to={`/albums/${albumId}/upload`}
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-center"
-        >
-          + Upload Image
-        </NavLink>
+        {/* Filters + Upload */}
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* All Images */}
+          <button
+            onClick={getImages}
+            className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg"
+          >
+            All
+          </button>
+
+          {/* Favourite Images */}
+          <button
+            onClick={hanldeFavourite}
+            className="px-4 py-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 rounded-lg"
+          >
+            Favourite
+          </button>
+
+          {/* Upload Button */}
+          <NavLink
+            to={`/albums/${albumId}/upload`}
+            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-center"
+          >
+            + Upload Image
+          </NavLink>
+        </div>
       </div>
 
-      {/* Empty stat */}
+      {/* Empty state */}
       {images.length === 0 ? (
         <p className="text-gray-500 text-center mt-20">
           No images in this album
@@ -92,7 +126,6 @@ export const AlbumDetails = () => {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* Close Button */}
           <button
             className="absolute top-6 right-6 text-white text-3xl"
             onClick={() => setSelectedImage(null)}
@@ -100,7 +133,6 @@ export const AlbumDetails = () => {
             ✕
           </button>
 
-          {/* Image */}
           <img
             src={selectedImage.imageUrl}
             alt={selectedImage.name}
