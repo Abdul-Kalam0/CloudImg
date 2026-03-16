@@ -31,7 +31,7 @@ export const Sidebar = () => {
           My Albums
         </NavLink>
 
-        <NavLink to="/share-with-me" className={navStyle}>
+        <NavLink to="/shared-with-me" className={navStyle}>
           <FaShareAlt />
           Shared With Me
         </NavLink>
