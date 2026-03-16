@@ -7,7 +7,13 @@ import { toast } from "react-toastify";
 
 export const AlbumCard = ({ album, onDelete }) => {
   const navigate = useNavigate();
+
   const [showMenu, setShowMenu] = useState(false);
+  const [showRename, setShowRename] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+
+  const [newName, setNewName] = useState("");
+  const [email, setEmail] = useState("");
 
   const menuRef = useRef(null);
 
@@ -37,7 +43,7 @@ export const AlbumCard = ({ album, onDelete }) => {
 
       onDelete(album.albumId);
 
-      toast.success("Album Deleted successfully");
+      toast.success("Album deleted successfully");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Error deleting album");
     }
@@ -47,17 +53,16 @@ export const AlbumCard = ({ album, onDelete }) => {
 
   const handleUpdate = async () => {
     try {
-      const newName = prompt("Enter new album name");
-
-      if (!newName || !newName.trim()) return;
+      if (!newName.trim()) return;
 
       await api.put(`/albums/${album.albumId}`, {
         name: newName.trim(),
       });
 
-      setShowMenu(false);
-
       toast.success("Album renamed successfully");
+
+      setShowRename(false);
+      setShowMenu(false);
 
       window.location.reload();
     } catch (error) {
@@ -69,15 +74,15 @@ export const AlbumCard = ({ album, onDelete }) => {
 
   const handleShare = async () => {
     try {
-      const email = prompt("Enter email to share album");
-
-      if (!email) return;
+      if (!email.trim()) return;
 
       await api.post(`/albums/${album.albumId}/share`, { email });
 
-      setShowMenu(false);
-
       toast.success("Album shared successfully");
+
+      setShowShare(false);
+      setShowMenu(false);
+      setEmail("");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Error sharing album");
     }
@@ -85,7 +90,7 @@ export const AlbumCard = ({ album, onDelete }) => {
 
   return (
     <>
-      {/* Overlay */}
+      {/* Overlay for menu */}
       {showMenu && (
         <div
           className="fixed inset-0 bg-black/20 z-10"
@@ -93,11 +98,14 @@ export const AlbumCard = ({ album, onDelete }) => {
         />
       )}
 
+      {/* ================= CARD ================= */}
+
       <div
         ref={menuRef}
         className="relative border rounded-xl p-4 sm:p-6 shadow hover:shadow-xl transform hover:scale-105 transition duration-300 cursor-pointer bg-white z-20"
       >
         {/* Menu Button */}
+
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -109,6 +117,7 @@ export const AlbumCard = ({ album, onDelete }) => {
         </button>
 
         {/* Dropdown Menu */}
+
         <div
           onClick={(e) => e.stopPropagation()}
           className={`absolute right-3 top-10 bg-white border rounded-xl shadow-lg w-44 z-30 overflow-hidden
@@ -119,13 +128,20 @@ export const AlbumCard = ({ album, onDelete }) => {
               : "scale-95 opacity-0 pointer-events-none"
           }`}
         >
+          {/* Rename */}
+
           <button
-            onClick={handleUpdate}
+            onClick={() => {
+              setNewName(album.name);
+              setShowRename(true);
+            }}
             className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-100 text-sm"
           >
             <FaEdit />
             Rename
           </button>
+
+          {/* Delete */}
 
           <button
             onClick={handleDelete}
@@ -135,8 +151,10 @@ export const AlbumCard = ({ album, onDelete }) => {
             Delete
           </button>
 
+          {/* Share */}
+
           <button
-            onClick={handleShare}
+            onClick={() => setShowShare(true)}
             className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-100 text-sm"
           >
             <FaShareAlt />
@@ -145,6 +163,7 @@ export const AlbumCard = ({ album, onDelete }) => {
         </div>
 
         {/* Album Content */}
+
         <div
           onClick={() => navigate(`/albums/${album.albumId}`)}
           className="flex flex-col items-center"
@@ -156,6 +175,72 @@ export const AlbumCard = ({ album, onDelete }) => {
           </h3>
         </div>
       </div>
+
+      {/* ================= RENAME MODAL ================= */}
+
+      {showRename && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white rounded-lg p-6 w-[350px] shadow-lg">
+            <h2 className="text-lg font-semibold mb-4">Rename Album</h2>
+
+            <input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Album name"
+              className="w-full border rounded-lg px-3 py-2 mb-4"
+            />
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowRename(false)}
+                className="px-4 py-2 bg-gray-200 rounded-lg"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleUpdate}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ================= SHARE MODAL ================= */}
+
+      {showShare && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+          <div className="bg-white rounded-lg p-6 w-[350px] shadow-lg">
+            <h2 className="text-lg font-semibold mb-4">Share Album</h2>
+
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
+              className="w-full border rounded-lg px-3 py-2 mb-4"
+            />
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowShare(false)}
+                className="px-4 py-2 bg-gray-200 rounded-lg"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleShare}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+              >
+                Share
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
