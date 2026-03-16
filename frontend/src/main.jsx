@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import { Login } from "./pages/Login.jsx";
 import { Register } from "./pages/Register.jsx";
 import { ProtectedRoute } from "./routes/ProtectedRoute.jsx";
@@ -8,10 +10,11 @@ import "./index.css";
 import { DashboardLayouts } from "./layouts/DashboardLayouts.jsx";
 import { Albums } from "./pages/Albums.jsx";
 import { Profile } from "./pages/Profile.jsx";
-import { Setting, SharedWithMe } from "./pages/SharedWithMe.jsx";
+import { SharedWithMe } from "./pages/SharedWithMe.jsx";
 import { CreateAlbum } from "./pages/CreateAlbum.jsx";
 import { AlbumDetails } from "./pages/AlbumDetails.jsx";
 import { UploadImage } from "./pages/UploadImage.jsx";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -43,16 +46,19 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <>
-    <RouterProvider router={router} />,{/* ✅ Toast container (ONLY ONCE) */}
-    <ToastContainer
-      position="top-right"
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop
-      closeOnClick
-      pauseOnHover
-      draggable
-    />
-  </>,
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <>
+      <RouterProvider router={router} />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+    </>
+  </GoogleOAuthProvider>,
 );

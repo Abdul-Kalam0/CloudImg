@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../services/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -35,6 +36,25 @@ export const Login = () => {
       toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ⭐ Google Login Handler
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      await api.post(
+        "/auth/google",
+        {
+          credential: credentialResponse.credential,
+        },
+        { withCredentials: true },
+      );
+
+      toast.success("Google login successful");
+
+      navigate("/albums");
+    } catch (error) {
+      toast.error("Google login failed");
     }
   };
 
@@ -74,7 +94,7 @@ export const Login = () => {
             />
           </div>
 
-          {/* Button */}
+          {/* Login Button */}
           <button
             type="submit"
             disabled={loading}
@@ -82,15 +102,30 @@ export const Login = () => {
           >
             {loading ? "Logging..." : "Login"}
           </button>
-
-          {/* Link */}
-          <p className="text-sm text-center">
-            Don't have an account?{" "}
-            <NavLink to="/register" className="text-blue-600 hover:underline">
-              Register
-            </NavLink>
-          </p>
         </form>
+
+        {/* ⭐ Divider */}
+        <div className="flex items-center my-5">
+          <div className="flex-grow border-t"></div>
+          <span className="mx-3 text-gray-500 text-sm">OR</span>
+          <div className="flex-grow border-t"></div>
+        </div>
+
+        {/* ⭐ Google Login Button */}
+        <div className="flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => toast.error("Google Login Failed")}
+          />
+        </div>
+
+        {/* Register Link */}
+        <p className="text-sm text-center mt-5">
+          Don't have an account?{" "}
+          <NavLink to="/register" className="text-blue-600 hover:underline">
+            Register
+          </NavLink>
+        </p>
       </div>
     </div>
   );
