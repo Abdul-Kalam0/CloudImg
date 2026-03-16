@@ -1,0 +1,33 @@
+
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2f8f"/>
+      <stop offset="100%" stop-color="#3a6ff2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Hexagon grid -->
+  <g stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none">
+    <polygon points="400,200 450,170 500,200 500,260 450,290 400,260"/>
+    <polygon points="500,200 550,170 600,200 600,260 550,290 500,260"/>
+    <polygon points="600,200 650,170 700,200 700,260 650,290 600,260"/>
+    <polygon points="700,200 750,170 800,200 800,260 750,290 700,260"/>
+  </g>
+
+  <!-- Tech circles -->
+  <circle cx="960" cy="540" r="250" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="none"/>
+  <circle cx="960" cy="540" r="200" stroke="rgba(255,255,255,0.2)" stroke-width="3" fill="none"/>
+  <circle cx="960" cy="540" r="150" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+
+  <!-- Horizontal line -->
+  <line x1="600" y1="540" x2="1320" y2="540" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+
+  <!-- Tech bars -->
+  <rect x="200" y="200" width="20" height="300" fill="rgba(255,255,255,0.2)"/>
+  <rect x="240" y="200" width="20" height="200" fill="rgba(255,255,255,0.2)"/>
+  <rect x="280" y="200" width="20" height="250" fill="rgba(255,255,255,0.2)"/>
+</svg>

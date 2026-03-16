@@ -61,7 +61,7 @@ export const Login = () => {
     <div
       className="relative min-h-screen flex items-center justify-center p-6 bg-cover bg-center"
       style={{
-        backgroundImage: "url('/cloud-bg.png')",
+        backgroundImage: "url('/tect-bg.svg')",
       }}
     >
       {/* DARK OVERLAY */}
