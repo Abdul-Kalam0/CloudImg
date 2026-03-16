@@ -175,6 +175,43 @@ export const shareAlbum = async (req, res) => {
       });
     }
 
+    export const shareAlbum = async (req, res) => {
+      try {
+        const { albumId } = req.params;
+        const { email } = req.body;
+
+        const album = await AlbumModel.findOne({ albumId });
+
+        if (!album) {
+          return res.status(404).json({
+            success: false,
+            message: "Album not found",
+          });
+        }
+
+        if (email.trim().toLowerCase() === req.user.email.toLowerCase()) {
+          return res.status(400).json({
+            success: false,
+            message: "You cannot share album with yourself",
+          });
+        }
+
+        album.sharedWith.push(email.toLowerCase());
+
+        await album.save();
+
+        return res.status(200).json({
+          success: true,
+          message: "Album shared successfully",
+        });
+      } catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: "Internal server error",
+        });
+      }
+    };
+
     const album = await AlbumModel.findOne({ albumId });
 
     if (!album) {
