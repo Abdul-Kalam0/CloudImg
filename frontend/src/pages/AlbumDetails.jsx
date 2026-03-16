@@ -3,6 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import api from "../services/api";
 import { ImageCard } from "../components/ImageCard";
 import { toast } from "react-toastify";
+import { FaImages, FaHeart } from "react-icons/fa";
 
 export const AlbumDetails = () => {
   const { albumId } = useParams();
@@ -36,7 +37,7 @@ export const AlbumDetails = () => {
     setImages((prev) => prev.filter((img) => img.imageId !== imageId));
   };
 
-  const hanldeFavourite = async () => {
+  const handleFavourite = async () => {
     try {
       setLoading(true);
       const res = await api.get(`/albums/${albumId}/images/favorites`);
@@ -77,18 +78,21 @@ export const AlbumDetails = () => {
         {/* Filters + Upload */}
         <div className="flex items-center gap-3 flex-wrap">
           {/* All Images */}
+          {/* All Images */}
           <button
             onClick={getImages}
-            className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg"
+            className="flex items-center gap-2 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg"
           >
+            <FaImages />
             All
           </button>
 
           {/* Favourite Images */}
           <button
-            onClick={hanldeFavourite}
-            className="px-4 py-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 rounded-lg"
+            onClick={handleFavourite}
+            className="flex items-center gap-2 px-4 py-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 rounded-lg"
           >
+            <FaHeart />
             Favourite
           </button>
 
