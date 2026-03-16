@@ -39,8 +39,6 @@ export const Login = () => {
     }
   };
 
-  /* GOOGLE LOGIN */
-
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       await api.post(
@@ -60,9 +58,37 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 bg-white rounded-2xl shadow-2xl overflow-hidden max-w-5xl w-full">
-        {/* LEFT SIDE (Branding) */}
+    <div
+      className="relative min-h-screen flex items-center justify-center p-6 bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/cloud-bg.png')",
+      }}
+    >
+      {/* DARK OVERLAY */}
+
+      <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
+
+      {/* FLOATING PHOTOS
+
+      <img
+        src="/photo1.jpg"
+        className="absolute w-20 top-20 left-20 rounded-lg shadow-lg animate-float"
+      />
+
+      <img
+        src="/photo2.jpg"
+        className="absolute w-24 bottom-24 right-32 rounded-lg shadow-lg animate-float delay-200"
+      />
+
+      <img
+        src="/photo3.jpg"
+        className="absolute w-16 top-32 right-20 rounded-lg shadow-lg animate-float delay-500"
+      /> */}
+
+      {/* LOGIN CARD */}
+
+      <div className="relative grid grid-cols-1 md:grid-cols-2 bg-white rounded-2xl shadow-2xl overflow-hidden max-w-5xl w-full">
+        {/* LEFT SIDE */}
 
         <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-10">
           <img src="/logo.png" alt="CloudImg" className="w-40 mb-6" />
@@ -78,11 +104,9 @@ export const Login = () => {
           </p>
         </div>
 
-        {/* RIGHT SIDE (LOGIN FORM) */}
+        {/* RIGHT SIDE */}
 
         <div className="p-10 flex flex-col justify-center">
-          {/* Logo for mobile */}
-
           <img
             src="/logo.png"
             alt="CloudImg"
@@ -92,8 +116,6 @@ export const Login = () => {
           <h1 className="text-2xl font-bold text-center mb-6">Welcome Back</h1>
 
           <form onSubmit={handleLogin} className="space-y-4">
-            {/* Email */}
-
             <div>
               <label className="block text-sm font-medium mb-1">Email</label>
 
@@ -107,8 +129,6 @@ export const Login = () => {
                 className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-
-            {/* Password */}
 
             <div>
               <label className="block text-sm font-medium mb-1">Password</label>
@@ -124,8 +144,6 @@ export const Login = () => {
               />
             </div>
 
-            {/* Login Button */}
-
             <button
               type="submit"
               disabled={loading}
@@ -135,7 +153,7 @@ export const Login = () => {
             </button>
           </form>
 
-          {/* OR Divider */}
+          {/* Divider */}
 
           <div className="flex items-center my-5">
             <div className="flex-grow border-t"></div>
@@ -143,7 +161,7 @@ export const Login = () => {
             <div className="flex-grow border-t"></div>
           </div>
 
-          {/* Google Login */}
+          {/* Google */}
 
           <div className="flex justify-center">
             <GoogleLogin
@@ -151,8 +169,6 @@ export const Login = () => {
               onError={() => toast.error("Google Login Failed")}
             />
           </div>
-
-          {/* Register */}
 
           <p className="text-sm text-center mt-6">
             Don't have an account?{" "}
