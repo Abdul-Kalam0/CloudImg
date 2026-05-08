@@ -12,7 +12,6 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
     origin: "https://cloud-img-001.vercel.app",
     credentials: true,
   }),
@@ -28,5 +27,9 @@ app.use("/albums", albumRoutes);
 app.use("/albums", imageRoutes);
 
 app.use(errorHandler);
+
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
 export default app;
