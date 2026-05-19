@@ -69,13 +69,13 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ### Dashboard
 
-![Dashboard](./screenshots/Dashboard.jpg)
+![Dashboard](./screenshots/Albums.jpg)
 
 ---
 
 ### Album Page
 
-![Album](./screenshots/Albums.jpg)
+![Album](./screenshots/SharedWithMe.jpg)
 
 ---
 
@@ -83,9 +83,13 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ![Gallery](./screenshots/Gallery.jpg)
 
+---
+
 ### Images
 
-![Images](./screenshots/Images.jpg) (./screenshots/Image1.jpg)
+![Image](./screenshots/Images.jpg) (./screenshots/Image1.jpg)
+
+![Image1](./screenshots/Image1.jpg)
 
 ---
 
