@@ -12,16 +12,18 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ## 📌 Features
 
-* 🔐 Authentication (JWT + Google OAuth)
-* 🍪 Secure HTTP-only Cookie Authentication
-* 📂 Create and manage albums
-* 🖼️ Upload and organize images
-* ⭐ Mark images as favorites
-* 💬 Comment on images
-* 🤝 Share albums with other users
-* 📱 Fully Responsive UI
-* 🎨 Modern SaaS-style Interface
-* 🔒 Protected Routes & API Security
+- 🔐 Authentication (JWT + Google OAuth)
+- 🍪 Secure HTTP-only Cookie Authentication
+- 📂 Create and manage albums
+- 🖼️ Upload and organize images
+- ⭐ Mark images as favorites
+- 💬 Comment on images
+- 🤝 Share albums with other users
+- 📱 Fully Responsive UI
+- 🎨 Modern SaaS-style Interface
+- 🔒 Protected Routes & API Security
+- ☁️ Cloudinary-powered image uploads
+- 🖼️ Optimized cloud image storage
 
 ---
 
@@ -29,27 +31,31 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ### Frontend
 
-* React (Vite)
-* Tailwind CSS
-* React Router DOM
-* Axios
-* React Toastify
+- React (Vite)
+- Tailwind CSS
+- React Router DOM
+- Axios
+- React Toastify
 
 ### Backend
 
-* Node.js
-* Express.js
-* MongoDB (Mongoose)
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
 
 ### Authentication
 
-* JWT (HTTP-only cookies)
-* Google OAuth
+- JWT (HTTP-only cookies)
+- Google OAuth
 
 ### Deployment
 
-* Frontend: Vercel
-* Backend: Vercel
+- Frontend: Vercel
+- Backend: Vercel
+
+### Images
+
+- Cloudinary
 
 ---
 
@@ -69,13 +75,17 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ### Album Page
 
-![Album](./screenshots/Album.jpg)
+![Album](./screenshots/Albums.jpg)
 
 ---
 
 ### Image Gallery
 
 ![Gallery](./screenshots/Gallery.jpg)
+
+### Images
+
+![Images](./screenshots/Images.jpg) (./screenshots/Image1.jpg)
 
 ---
 
@@ -172,14 +182,14 @@ npm run dev
 
 ### Email/Password Login
 
-* User logs in → JWT token stored in HTTP-only cookies
-* Protected routes validated using `/auth/me`
+- User logs in → JWT token stored in HTTP-only cookies
+- Protected routes validated using `/auth/me`
 
 ### Google OAuth
 
-* User logs in using Google
-* Backend verifies Google credential
-* JWT cookie is issued after verification
+- User logs in using Google
+- Backend verifies Google credential
+- JWT cookie is issued after verification
 
 ---
 
@@ -208,47 +218,47 @@ POST   /albums/:id/comments
 
 ## 🏗️ Architecture & Security
 
-* 🏗️ Scalable MERN architecture
-* 🍪 Cross-origin secure cookie authentication
-* 🛡️ Protected backend APIs using JWT middleware
-* 🔒 Secure album & image access control
-* ⚡ Optimized frontend routing with protected/public routes
+- 🏗️ Scalable MERN architecture
+- 🍪 Cross-origin secure cookie authentication
+- 🛡️ Protected backend APIs using JWT middleware
+- 🔒 Secure album & image access control
+- ⚡ Optimized frontend routing with protected/public routes
 
 ---
 
 ## 📊 Project Highlights
 
-* ⚡ Built multiple REST APIs
-* 🖼️ Cloud-based image organization system
-* 🔐 Secure authentication using JWT + OAuth
-* 🤝 Album sharing & collaboration features
-* ⭐ Favorites & comments functionality
-* 🎨 Production-grade SaaS-inspired UI/UX
-* 🚀 Deployed with cross-origin cookie handling
+- ⚡ Built multiple REST APIs
+- 🖼️ Cloud-based image organization system
+- 🔐 Secure authentication using JWT + OAuth
+- 🤝 Album sharing & collaboration features
+- ⭐ Favorites & comments functionality
+- 🎨 Production-grade SaaS-inspired UI/UX
+- 🚀 Deployed with cross-origin cookie handling
 
 ---
 
 ## 🧠 Learnings
 
-* Full-stack MERN architecture
-* Authentication & authorization
-* Cross-origin cookie handling
-* File & image management workflows
-* REST API design
-* State management & protected routing
-* Modern UI/UX design with Tailwind CSS
-* Deployment & production environment handling
+- Full-stack MERN architecture
+- Authentication & authorization
+- Cross-origin cookie handling
+- File & image management workflows
+- REST API design
+- State management & protected routing
+- Modern UI/UX design with Tailwind CSS
+- Deployment & production environment handling
 
 ---
 
 ## 🚧 Future Improvements
 
-* 🖼️ Image compression & optimization
-* 📦 Drag & drop uploads
-* 🤝 Real-time collaboration
-* 🧠 AI-based image tagging
-* 🌙 Dark mode support
-* ☁️ Cloudinary/AWS S3 integration
+- 🖼️ Image compression & optimization
+- 📦 Drag & drop uploads
+- 🤝 Real-time collaboration
+- 🧠 AI-based image tagging
+- 🌙 Dark mode support
+- ☁️ Cloudinary/AWS S3 integration
 
 ---
 
