@@ -24,6 +24,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Login /> },
       { path: "/register", element: <Register /> },
+
+      // Invalid public routes
+      { path: "*", element: <NotFound /> },
     ],
   },
 
@@ -39,6 +42,9 @@ const router = createBrowserRouter([
           { path: "/create-album", element: <CreateAlbum /> },
           { path: "/albums/:albumId", element: <AlbumDetails /> },
           { path: "/albums/:albumId/upload", element: <UploadImage /> },
+
+          // Invalid protected routes
+          { path: "*", element: <NotFound /> },
         ],
       },
     ],
