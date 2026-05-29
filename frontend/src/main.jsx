@@ -17,6 +17,7 @@ import { UploadImage } from "./pages/UploadImage.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NotFound from "./pages/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
