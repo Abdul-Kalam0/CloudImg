@@ -16,9 +16,9 @@ Built using React, Node.js, Express, MongoDB, Cloudinary, JWT Authentication, an
 
 > **Guest Account**
 >
-> Email: `guest@example.com`
+> Email: `demo@example.com`
 >
-> Password: `guest123`
+> Password: `123@Demo`
 
 
 ---
@@ -156,7 +156,7 @@ Watch a complete walkthrough of the application:
 
 ### Image View
 
-![Image](./screenshots/Image.jpg)
+![Image](./screenshots/Images.jpg)
 
 ---
 
