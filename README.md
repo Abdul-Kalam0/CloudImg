@@ -23,6 +23,14 @@ Built using React, Node.js, Express, MongoDB, Cloudinary, JWT Authentication, an
 
 ---
 
+## 🎥 Demo Video
+
+Watch a complete walkthrough of the application:
+
+[Demo Video Link](https://www.loom.com/share/382f54c8f7a140c4a08d16acb1f99b72)
+
+---
+
 ## ⚡ Quick Start
 
 ```bash
@@ -85,14 +93,6 @@ npm run dev
 ### Deployment
 
 * Vercel
-
----
-
-## 🎥 Demo Video
-
-Watch a complete walkthrough of the application:
-
-[Demo Video Link](#)
 
 ---
 
