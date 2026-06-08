@@ -1,6 +1,8 @@
 # 🚀 CloudImg – Cloud-Based Image Management Platform
 
-CloudImg is a full-stack cloud-based image management platform that allows users to securely upload, organize, manage, and share images using a modern scalable architecture.
+A full-stack cloud-based image management platform where users can securely upload, organize, manage, and share images through albums.
+
+Built using React, Node.js, Express, MongoDB, Cloudinary, JWT Authentication, and Google OAuth.
 
 ---
 
@@ -10,264 +12,333 @@ CloudImg is a full-stack cloud-based image management platform that allows users
 
 ---
 
-## 📌 Features
+## 🔑 Demo Login
 
-- 🔐 Authentication (JWT + Google OAuth)
-- 🍪 Secure HTTP-only Cookie Authentication
-- 📂 Create and manage albums
-- 🖼️ Upload and organize images
-- ⭐ Mark images as favorites
-- 💬 Comment on images
-- 🤝 Share albums with other users
-- 📱 Fully Responsive UI
-- 🎨 Modern SaaS-style Interface
-- 🔒 Protected Routes & API Security
-- ☁️ Cloudinary-powered image uploads
-- 🖼️ Optimized cloud image storage
+> **Guest Account**
+>
+> Email: `guest@example.com`
+>
+> Password: `guest123`
+
 
 ---
 
-## 🛠️ Tech Stack
+## ⚡ Quick Start
+
+```bash
+git clone https://github.com/Abdul-Kalam0/CloudImg.git
+
+cd CloudImg
+
+# Install Backend Dependencies
+cd backend
+npm install
+
+# Install Frontend Dependencies
+cd ../frontend
+npm install
+```
+
+Run Backend:
+
+```bash
+cd backend
+npm run dev
+```
+
+Run Frontend:
+
+```bash
+cd frontend
+npm run dev
+```
+
+---
+
+## 🛠️ Technologies
 
 ### Frontend
 
-- React (Vite)
-- Tailwind CSS
-- React Router DOM
-- Axios
-- React Toastify
+* React (Vite)
+* Tailwind CSS
+* React Router DOM
+* Axios
+* React Toastify
 
 ### Backend
 
-- Node.js
-- Express.js
-- MongoDB (Mongoose)
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
 
 ### Authentication
 
-- JWT (HTTP-only cookies)
-- Google OAuth
+* JWT Authentication
+* HTTP-only Cookies
+* Google OAuth
+
+### Cloud Services
+
+* Cloudinary
 
 ### Deployment
 
-- Frontend: Vercel
-- Backend: Vercel
+* Vercel
 
-### Images
+---
 
-- Cloudinary
+## 🎥 Demo Video
+
+Watch a complete walkthrough of the application:
+
+[Demo Video Link](#)
+
+---
+
+## ✨ Features
+
+### Authentication
+
+* User Registration & Login
+* Google OAuth Login
+* JWT Authentication
+* Secure HTTP-only Cookie Storage
+* Protected Routes
+
+### Album Management
+
+* Create Albums
+* Edit Album Details
+* Delete Albums
+* View Shared Albums
+
+### Image Management
+
+* Upload Images
+* Organize Images by Album
+* Delete Images
+* Favorite Images
+* Optimized Cloud Storage
+
+### Collaboration
+
+* Share Albums with Other Users
+* Comment on Images
+* Access Shared Content
+
+### User Experience
+
+* Fully Responsive Design
+* Modern SaaS-Inspired UI
+* Toast Notifications
+* Protected Navigation
 
 ---
 
 ## 📸 Screenshots
 
-### Login
+### Login Page
 
 ![Login](./screenshots/Login.jpg)
 
----
-
-### Albums
+### Albums Dashboard
 
 ![Albums](./screenshots/Albums.jpg)
 
----
-
-### SharedWithMe
+### Shared Albums
 
 ![SharedWithMe](./screenshots/SharedWithMe.jpg)
-
----
 
 ### Image Gallery
 
 ![Gallery](./screenshots/Gallery.jpg)
 
+### Image View
+
+![Image](./screenshots/Image.jpg)
+
+---
+
+## 📡 API Reference
+
+### Authentication
+
+#### POST `/auth/register`
+
+Register a new user.
+
+**Response**
+
+```json
+{
+  "user": {},
+  "token": "jwt_token"
+}
+```
+
+---
+
+#### POST `/auth/login`
+
+Login user.
+
+**Response**
+
+```json
+{
+  "user": {},
+  "token": "jwt_token"
+}
+```
+
+---
+
+#### GET `/auth/me`
+
+Get authenticated user details.
+
+**Response**
+
+```json
+{
+  "user": {}
+}
+```
+
+---
+
+### Albums
+
+#### POST `/albums`
+
+Create a new album.
+
+**Response**
+
+```json
+{
+  "_id": "albumId",
+  "title": "Travel Photos"
+}
+```
+
+---
+
+#### GET `/albums`
+
+Get all albums.
+
+**Response**
+
+```json
+[
+  {
+    "_id": "albumId",
+    "title": "Travel Photos"
+  }
+]
+```
+
 ---
 
 ### Images
 
-![Image](./screenshots/Images.jpg)
+#### POST `/albums/:id/images`
 
-![Image1](./screenshots/Image1.jpg)
+Upload image to album.
+
+**Response**
+
+```json
+{
+  "_id": "imageId",
+  "url": "cloudinary_url"
+}
+```
 
 ---
 
 ## 📁 Folder Structure
 
-```bash id="kr93dz"
-CloudImg/
+```text
+CloudImg
 │
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   ├── context/
-│   ├── pages/
-│   ├── routes/
-│   ├── services/
+├── frontend
+│   ├── src
+│   ├── components
+│   ├── pages
+│   ├── context
+│   ├── services
+│   └── routes
 │
-├── backend/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
+├── backend
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   └── utils
 │
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## 🔐 Security
 
-### 1️⃣ Clone the repository
-
-```bash id="zv18dc"
-git clone https://github.com/Abdul-Kalam0/CloudImg
-
-cd CloudImg
-```
-
----
-
-### 2️⃣ Setup Backend
-
-```bash id="9m5c7q"
-cd backend
-
-npm install
-```
-
-Create `.env` file:
-
-```env id="2g7m4x"
-PORT=3000
-
-MONGO_URI=your_mongodb_uri
-
-JWT_SECRET=your_secret
-
-GOOGLE_CLIENT_ID=your_google_client_id
-```
-
-Run backend:
-
-```bash id="pk91va"
-npm run dev
-```
-
----
-
-### 3️⃣ Setup Frontend
-
-```bash id="d7f1sb"
-cd frontend
-
-npm install
-```
-
-Create `.env` file:
-
-```env id="v8n2qp"
-VITE_API_URL=http://localhost:3000
-
-VITE_GOOGLE_CLIENT_ID=your_google_client_id
-```
-
-Run frontend:
-
-```bash id="a5y3tc"
-npm run dev
-```
-
----
-
-## 🔐 Authentication Flow
-
-### Email/Password Login
-
-- User logs in → JWT token stored in HTTP-only cookies
-- Protected routes validated using `/auth/me`
-
-### Google OAuth
-
-- User logs in using Google
-- Backend verifies Google credential
-- JWT cookie is issued after verification
-
----
-
-## 📡 API Endpoints (Sample)
-
-```bash id="j1s8mo"
-POST   /auth/register
-POST   /auth/login
-POST   /auth/google
-POST   /auth/logout
-GET    /auth/me
-
-POST   /albums
-GET    /albums
-PUT    /albums/:id
-DELETE /albums/:id
-
-POST   /albums/:id/images
-DELETE /albums/:id/images/:imageId
-
-POST   /albums/:id/share
-POST   /albums/:id/comments
-```
-
----
-
-## 🏗️ Architecture & Security
-
-- 🏗️ Scalable MERN architecture
-- 🍪 Cross-origin secure cookie authentication
-- 🛡️ Protected backend APIs using JWT middleware
-- 🔒 Secure album & image access control
-- ⚡ Optimized frontend routing with protected/public routes
+* JWT Authentication
+* HTTP-only Cookies
+* Protected Backend APIs
+* Secure Route Authorization
+* Album Access Control
+* Google OAuth Verification
 
 ---
 
 ## 📊 Project Highlights
 
-- ⚡ Built multiple REST APIs
-- 🖼️ Cloud-based image organization system
-- 🔐 Secure authentication using JWT + OAuth
-- 🤝 Album sharing & collaboration features
-- ⭐ Favorites & comments functionality
-- 🎨 Production-grade SaaS-inspired UI/UX
-- 🚀 Deployed with cross-origin cookie handling
-
----
-
-## 🧠 Learnings
-
-- Full-stack MERN architecture
-- Authentication & authorization
-- Cross-origin cookie handling
-- File & image management workflows
-- REST API design
-- State management & protected routing
-- Modern UI/UX design with Tailwind CSS
-- Deployment & production environment handling
+* Full-Stack MERN Application
+* Cloudinary Integration
+* Album Sharing System
+* Image Favorites & Comments
+* Secure Authentication
+* Production-Ready Architecture
+* Responsive SaaS UI
+* Cross-Origin Cookie Handling
 
 ---
 
 ## 🚧 Future Improvements
 
-- 🖼️ Image compression & optimization
-- 📦 Drag & drop uploads
-- 🤝 Real-time collaboration
-- 🧠 AI-based image tagging
-- 🌙 Dark mode support
-- ☁️ Cloudinary/AWS S3 integration
+* Drag & Drop Uploads
+* AI-Based Image Tagging
+* Image Compression
+* Real-Time Collaboration
+* AWS S3 Support
+* Dark Mode
 
 ---
 
-## ⭐ Show Your Support
+## 📧 Contact
+
+For bugs, suggestions, or collaboration opportunities:
+
+**Abdul Kalam**
+
+GitHub: https://github.com/Abdul-Kalam0
+
+LinkedIn: https://www.linkedin.com/in/your-profile
+
+Email: [your-email@example.com](mailto:your-email@example.com)
+
+---
+
+## ⭐ Support
 
 If you found this project useful:
 
-👉 Star ⭐ this repository
+⭐ Star this repository
+
+🍴 Fork and contribute
+
+📢 Share it with others
